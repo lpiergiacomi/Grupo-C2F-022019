@@ -10,7 +10,7 @@ public class HomeController {
 
 
     //@CrossOrigin(origins = "https://app-grupoc2f-022019.herokuapp.com")
-    @GetMapping("/home")
+    @GetMapping("/")
     public String index() {
         return "Hola mundo";
     }
