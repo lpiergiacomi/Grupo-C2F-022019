@@ -1,5 +1,8 @@
 package unq.tpi.desapp.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Client {
 
     private String firstName;
@@ -9,6 +12,7 @@ public class Client {
     private String locality;
     private String address;
     private int credit;
+    private List<Service> services;
 
     public Client(String firstName, String lastName, String mail, String phone, String locality, String address) {
         this.firstName = firstName;
@@ -65,5 +69,29 @@ public class Client {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
+    public List<Menu> searchMenu(String menuName) {
+        List<Menu> menuResults = new ArrayList<>();
+        for (Service service : services) {
+            menuResults.addAll(service.searchMenu(menuName));
+        }
+        return menuResults;
     }
 }

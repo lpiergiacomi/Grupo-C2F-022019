@@ -1,23 +1,27 @@
 package unq.tpi.desapp.models;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Service {
 
     private String name;
     private String locality;
     private String address;
-    private Coord coord;
+    //private Coord coord;
     private String description;
     private String site;
     private String mail;
     private String phone;
     private String attentionTime;
     private int deliveryRadius;
+    private List<Menu> menus;
 
-    public Service(String name, String locality, String address, Coord coord, String description, String mail, String phone, String attentionTime) {
+    public Service(String name, String locality, String address, String description, String mail, String phone, String attentionTime) {
         this.name = name;
         this.locality = locality;
         this.address = address;
-        this.coord = coord;
+        //this.coord = coord;
         this.description = description;
         this.mail = mail;
         this.phone = phone;
@@ -48,6 +52,7 @@ public class Service {
         this.address = address;
     }
 
+    /*
     public Coord getCoord() {
         return coord;
     }
@@ -55,6 +60,7 @@ public class Service {
     public void setCoord(Coord coord) {
         this.coord = coord;
     }
+    */
 
     public String getDescription() {
         return description;
@@ -102,5 +108,18 @@ public class Service {
 
     public void setDeliveryRadius(int deliveryRadius) {
         this.deliveryRadius = deliveryRadius;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public List<Menu> searchMenu(String nameMenu) {
+        List<Menu> menuResult = this.menus.stream().filter(menu -> menu.getName().equals(nameMenu)).collect(Collectors.toList());
+        return menuResult;
     }
 }
