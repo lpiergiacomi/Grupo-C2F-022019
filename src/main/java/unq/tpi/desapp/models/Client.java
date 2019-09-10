@@ -2,6 +2,7 @@ package unq.tpi.desapp.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Client {
 
@@ -87,10 +88,19 @@ public class Client {
         this.services = services;
     }
 
-    public List<Menu> searchMenu(String menuName) {
+    public List<Menu> searchMenuName(String menuName) {
         List<Menu> menuResults = new ArrayList<>();
         for (Service service : services) {
-            menuResults.addAll(service.searchMenu(menuName));
+            menuResults.addAll(service.searchMenuName(menuName));
+        }
+        return menuResults;
+    }
+
+    public List<Menu> searchMenuLocality(String menuLocality) {
+        List<Service> servicesResults = this.services.stream().filter(service -> service.getLocality().equals(menuLocality)).collect(Collectors.toList());
+        List<Menu> menuResults = new ArrayList<>();
+        for (Service service : servicesResults) {
+            menuResults.addAll(service.getMenus());
         }
         return menuResults;
     }

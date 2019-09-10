@@ -12,6 +12,7 @@ public class Menu {
     private int minQuantity2;
     private int minQuantity2Price;
     private int maxSalesPerDay;
+    private Service service;
 
     public Menu(String name, String description, int minQuantity, int minQuantityPrice, int maxSalesPerDay) {
         this.name = name;
@@ -99,5 +100,13 @@ public class Menu {
 
     public void setMaxSalesPerDay(int maxSalesPerDay) {
         this.maxSalesPerDay = maxSalesPerDay;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 }

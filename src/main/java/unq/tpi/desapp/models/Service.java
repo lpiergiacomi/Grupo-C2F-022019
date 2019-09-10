@@ -118,8 +118,8 @@ public class Service {
         this.menus = menus;
     }
 
-    public List<Menu> searchMenu(String nameMenu) {
-        List<Menu> menuResult = this.menus.stream().filter(menu -> menu.getName().equals(nameMenu)).collect(Collectors.toList());
-        return menuResult;
+    public List<Menu> searchMenuName(String nameMenu) {
+        List<Menu> menuResults = this.menus.stream().filter(menu -> menu.getName().equals(nameMenu)).collect(Collectors.toList());
+        return menuResults;
     }
 }

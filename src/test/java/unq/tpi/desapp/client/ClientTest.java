@@ -14,26 +14,49 @@ import static org.junit.Assert.assertTrue;
 public class ClientTest {
 
     private Client client1;
-    private Menu menu;
-    private Service service;
+    private Menu menu1;
+    private Menu menu2;
+    private Service service1;
+    private Service service2;
 
     @Before
     public void prepare() {
         this.client1 = new Client("Esteban", "Matas", "estebanmatas13@gmail.com", "1122334455", "Quilmes", "Av Calchaqui 666");
-        this.menu = new Menu("Tradicional", "Menu tradicional", 3, 450, 10);
-        this.service = new Service("Viri", "Bernal", "25 de Mayo 161", "Viri Burger", "viriburger@gmail.com", "2122 1000", "Todos los dias");
-        List<Menu> menus = new ArrayList<>();
-        menus.add(menu);
-        service.setMenus(menus);
+
+        this.menu1 = new Menu("Tradicional", "Menu tradicional", 3, 450, 10);
+        this.menu2 = new Menu("Papas Cheddar", "Menu papas cheddar", 2, 210, 5);
+
+        this.service1 = new Service("Viri", "Bernal", "25 de Mayo 161", "Viri Burger", "viriburger@gmail.com", "2122 1000", "Todos los dias");
+        this.service2 = new Service("Antares", "Quilmes", "Colon 215", "Antares Quilmes", "antaresquilmes@gmail.com", "4224 5207", "Siempre");
+
+        List<Menu> menusService1 = new ArrayList<>();
+        List<Menu> menusService2 = new ArrayList<>();
+
+        menusService1.add(menu1);
+        menusService2.add(menu2);
+
+        service1.setMenus(menusService1);
+        service2.setMenus(menusService2);
+
         List<Service> services = new ArrayList<>();
-        services.add(service);
+
+        services.add(service1);
+        services.add(service2);
+
         client1.setServices(services);
     }
 
     @Test
-    public void searchMenuTest() {
-        List<Menu> menuResults = client1.searchMenu("Tradicional");
+    public void searchMenuNameTest() {
+        List<Menu> menuResults = client1.searchMenuName("Tradicional");
         assertTrue(menuResults.size() > 0);
-        assertTrue(menuResults.contains(menu));
+        assertTrue(menuResults.contains(menu1));
+    }
+
+    @Test
+    public void searchMenuNameLocality() {
+        List<Menu> menuResults = client1.searchMenuLocality("Quilmes");
+        assertTrue(menuResults.size() > 0);
+        assertTrue(menuResults.contains(menu2));
     }
 }
