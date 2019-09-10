@@ -1,6 +1,8 @@
 package unq.tpi.desapp.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,7 @@ public class Client {
     private String address;
     private int credit;
     private List<Service> services;
+    private List<Menu> menus;
 
     public Client(String firstName, String lastName, String mail, String phone, String locality, String address) {
         this.firstName = firstName;
@@ -22,6 +25,7 @@ public class Client {
         this.phone = phone;
         this.locality = locality;
         this.address = address;
+        this.menus = new ArrayList<Menu>();
     }
 
     public String getFirstName() {
@@ -88,20 +92,32 @@ public class Client {
         this.services = services;
     }
 
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
     public List<Menu> searchMenuName(String menuName) {
-        List<Menu> menuResults = new ArrayList<>();
+        //List<Menu> menuResults = new ArrayList<>();
         for (Service service : services) {
-            menuResults.addAll(service.searchMenuName(menuName));
+            this.menus.addAll(service.searchMenuName(menuName));
         }
-        return menuResults;
+        return this.menus;
     }
 
     public List<Menu> searchMenuLocality(String menuLocality) {
         List<Service> servicesResults = this.services.stream().filter(service -> service.getLocality().equals(menuLocality)).collect(Collectors.toList());
-        List<Menu> menuResults = new ArrayList<>();
+        //List<Menu> menuResults = new ArrayList<>();
         for (Service service : servicesResults) {
-            menuResults.addAll(service.getMenus());
+            this.menus.addAll(service.getMenus());
         }
-        return menuResults;
+        return this.menus;
+    }
+
+    public void sortMenusByPrice() {
+        Collections.sort(menus, Comparator.comparingInt(Menu::getPrice));
     }
 }
