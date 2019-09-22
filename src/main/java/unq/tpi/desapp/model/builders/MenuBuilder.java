@@ -1,9 +1,7 @@
-package unq.tpi.desapp.models.builders;
+package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.models.Menu;
-import unq.tpi.desapp.models.Provider;
-
-import java.util.List;
+import unq.tpi.desapp.model.Menu;
+import unq.tpi.desapp.model.Provider;
 
 public class MenuBuilder {
 
@@ -17,6 +15,7 @@ public class MenuBuilder {
     private int minQuantity2;
     private int minQuantityPrice2;
     private int maxSalesPerDay;
+    private Provider provider;
 
 
     public MenuBuilder withName(String name){
@@ -64,9 +63,14 @@ public class MenuBuilder {
         return this;
     }
 
+    public MenuBuilder withProvider(Provider provider){
+        this.provider = provider;
+        return this;
+    }
+
 
 
     public Menu build() {
-            return new Menu(name, description, deliveryPrice, price, minQuantity, minQuantityPrice, minQuantity2, minQuantityPrice2, maxSalesPerDay);
+            return new Menu(name, description, deliveryPrice, price, minQuantity, minQuantityPrice, minQuantity2, minQuantityPrice2, maxSalesPerDay, provider);
     }
 }

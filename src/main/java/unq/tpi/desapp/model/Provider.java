@@ -1,11 +1,10 @@
-package unq.tpi.desapp.models;
+package unq.tpi.desapp.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MenusMaximos;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -46,6 +45,11 @@ public class Provider {
         }
         menus.add(menu);
     }
+
+    public boolean tieneSuficientesMenus(Menu menu, int cantidad) {
+        return menu.getMaxSalesPerDay() >= cantidad;
+    }
+
     /*
     public List<Menu> searchMenuName(String nameMenu) {
         List<Menu> menuResults = this.menus.stream().filter(menu -> menu.getName().equals(nameMenu)).collect(Collectors.toList());

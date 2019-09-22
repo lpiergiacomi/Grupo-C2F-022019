@@ -1,13 +1,8 @@
-package unq.tpi.desapp;
+package unq.tpi.desapp.model;
 
 import org.junit.Test;
-import unq.tpi.desapp.models.Menu;
-import unq.tpi.desapp.models.Provider;
-import unq.tpi.desapp.models.builders.MenuBuilder;
-import unq.tpi.desapp.models.builders.ProviderBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
+import unq.tpi.desapp.model.builders.MenuBuilder;
+import unq.tpi.desapp.model.builders.ProviderBuilder;
 
 import static org.junit.Assert.assertEquals;
 
@@ -75,6 +70,13 @@ public class MenuTest {
     public void testMaxSalesPerDay(){
         Menu menu = new MenuBuilder().withMaxSalesPerDay(10).build();
         assertEquals(menu.getMaxSalesPerDay(), 10);
+    }
+
+    @Test
+    public void testProvider(){
+        Provider provider = new ProviderBuilder().build();
+        Menu menu = new MenuBuilder().withProvider(provider).build();
+        assertEquals(menu.getProvider(), provider);
     }
 
     /*

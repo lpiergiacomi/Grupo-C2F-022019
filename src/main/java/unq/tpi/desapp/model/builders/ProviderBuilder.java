@@ -1,7 +1,7 @@
-package unq.tpi.desapp.models.builders;
+package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.models.Menu;
-import unq.tpi.desapp.models.Provider;
+import unq.tpi.desapp.model.Menu;
+import unq.tpi.desapp.model.Provider;
 
 import java.util.List;
 

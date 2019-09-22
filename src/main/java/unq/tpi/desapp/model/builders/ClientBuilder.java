@@ -1,6 +1,6 @@
-package unq.tpi.desapp.models.builders;
+package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.models.Client;
+import unq.tpi.desapp.model.Client;
 
 public class ClientBuilder {
 

@@ -1,11 +1,9 @@
-package unq.tpi.desapp;
+package unq.tpi.desapp.model;
 
 import org.junit.Test;
 import unq.tpi.desapp.exceptions.MenusMaximos;
-import unq.tpi.desapp.models.Menu;
-import unq.tpi.desapp.models.Provider;
-import unq.tpi.desapp.models.builders.MenuBuilder;
-import unq.tpi.desapp.models.builders.ProviderBuilder;
+import unq.tpi.desapp.model.builders.MenuBuilder;
+import unq.tpi.desapp.model.builders.ProviderBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
