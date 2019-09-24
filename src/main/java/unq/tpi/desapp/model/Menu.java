@@ -3,12 +3,17 @@ package unq.tpi.desapp.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Entity
 public class Menu {
 
+    @Id
     private String name;
     private String description;
     //private Category category;
@@ -23,9 +28,10 @@ public class Menu {
     private int minQuantity2;
     private int minQuantityPrice2;
     private int maxSalesPerDay;
+    @OneToOne
     private Provider provider;
 
-    public Menu(String name, String description, int deliveryPrice, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2,int maxSalesPerDay, Provider provider) {
+    public Menu(String name, String description, int deliveryPrice, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, Provider provider) {
         this.name = name;
         this.description = description;
         this.deliveryPrice = deliveryPrice;

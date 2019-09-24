@@ -4,12 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MenusMaximos;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
 @Getter
 @Setter
+@Entity
 public class Provider {
 
+    @Id
     private String name;
     private String logo;
     private String locality;
@@ -21,6 +26,7 @@ public class Provider {
     private String phone;
     private String attentionTime;
     private int deliveryRadius;
+    @ElementCollection
     private List<Menu> menus;
 
     public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, String attentionTime, int deliveryRadius, List<Menu> menus) {
@@ -38,9 +44,12 @@ public class Provider {
         this.menus = menus;
     }
 
+    public Provider() {
+    } //Hibernate pide un default constructor
 
-    public void addMenu(Menu menu){
-        if (this.menus.size() == 20){
+
+    public void addMenu(Menu menu) {
+        if (this.menus.size() == 20) {
             throw new MenusMaximos("No se pueden agregar más menu");
         }
         menus.add(menu);
