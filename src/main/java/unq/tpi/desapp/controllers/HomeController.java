@@ -17,7 +17,7 @@ public class HomeController {
     private IProvider provider;
 
 
-    @RequestMapping("/providers")
+    @RequestMapping("/")
     public String index() {
         //Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
         //Provider antares = new ProviderBuilder().withName("Antares").build();
