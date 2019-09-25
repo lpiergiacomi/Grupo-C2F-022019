@@ -7,6 +7,8 @@ import unq.tpi.desapp.model.Provider;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 import unq.tpi.desapp.persistence.IProvider;
 
+import java.util.List;
+
 
 @RestController
 public class HomeController {
@@ -15,10 +17,12 @@ public class HomeController {
     private IProvider provider;
 
 
-    @GetMapping("/")
-    public String index() {
+    @RequestMapping("/providers")
+    public List<Provider> index() {
         Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
+        Provider antares = new ProviderBuilder().withName("Antares").build();
         provider.save(viri);
-        return provider.getOne("Viri Burguer").getName();
+        provider.save(antares);
+        return provider.findAll();
     }
 }
