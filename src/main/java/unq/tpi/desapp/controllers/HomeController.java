@@ -13,16 +13,17 @@ import java.util.List;
 @RestController
 public class HomeController {
 
-    //@Autowired
-    //private IProvider provider;
+    @Autowired
+    private IProvider provider;
 
 
     @GetMapping("/")
-    public String index() {
-        //Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
-        //Provider antares = new ProviderBuilder().withName("Antares").build();
-        //provider.save(viri);
-        //provider.save(antares);
-        return "Hola mundo";
+    public List<Provider> index() {
+        Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
+        Provider antares = new ProviderBuilder().withName("Antares").build();
+        provider.save(viri);
+        provider.save(antares);
+        return provider.findAll();
+        //return "Hola mundo";
     }
 }
