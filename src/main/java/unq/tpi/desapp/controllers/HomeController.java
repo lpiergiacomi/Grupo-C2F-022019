@@ -18,11 +18,11 @@ public class HomeController {
 
 
     @RequestMapping("/providers")
-    public List<Provider> index() {
-        Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
-        Provider antares = new ProviderBuilder().withName("Antares").build();
-        provider.save(viri);
-        provider.save(antares);
-        return provider.findAll();
+    public String index() {
+        //Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
+        //Provider antares = new ProviderBuilder().withName("Antares").build();
+        //provider.save(viri);
+        //provider.save(antares);
+        return "Hola mundo";
     }
 }
