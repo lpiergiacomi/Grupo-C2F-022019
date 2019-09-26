@@ -1,9 +1,14 @@
 package unq.tpi.desapp.model;
 
 import org.junit.Test;
+import unq.tpi.desapp.controllers.EmailSender;
 import unq.tpi.desapp.exceptions.InvalidEmailException;
 
+import static org.mockito.Mockito.mock;
+
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class EmailTest {
 
@@ -28,4 +33,17 @@ public class EmailTest {
         assertEquals(email.getReceiver(), "lgpiergiacomi@gmail.com");
         assertEquals(email.getMessage(), "Mensaje de prueba");
     }
+
+    @Test
+    public void sendEmailTest() {
+        Email email = new Email();
+        email.createEmailWith("Prueba", "estebanmatas13@gmail.com", "Mensaje de prueba");
+
+        EmailSender emailSender = mock(EmailSender.class);
+
+        emailSender.sendEmail(email);
+
+        verify(emailSender, times(1)).sendEmail(email);
+    }
+
 }
