@@ -16,7 +16,7 @@ public class Menu {
     @Id
     private String name;
     private String description;
-    //private Category category;
+    private MenuCategory category;
     private int deliveryPrice;
     private LocalDateTime fechaVigenciaDesde;
     private LocalDateTime fechaVigenciaHasta;
