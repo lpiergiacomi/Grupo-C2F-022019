@@ -9,7 +9,7 @@ before_install:
   - chmod +x mvnw
   - sudo apt-get install jq
   - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
-  - mysql -u root -e "CREATE DATABASE viandasya;"
+  - psql -c 'CREATE DATABASE viandasya;' -U postgres
 
 after_success:
   - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r target/site/jacoco/jacoco.xml
