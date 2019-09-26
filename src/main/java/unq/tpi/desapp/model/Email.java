@@ -29,7 +29,7 @@ public class Email {
         setMessage(message);
     }
 
-    private void validEmail(String newEmail) {
+    public void validEmail(String newEmail) {
         // Chequea si una mail es valido mediante expresiones regulares.
         if (!newEmail.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"))
             throw new InvalidEmailException("Invalid email");
