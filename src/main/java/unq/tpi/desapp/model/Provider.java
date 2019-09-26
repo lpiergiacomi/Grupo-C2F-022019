@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MenusMaximos;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -15,6 +13,10 @@ import java.util.List;
 public class Provider {
 
     @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private String name;
     private String logo;
     private String locality;

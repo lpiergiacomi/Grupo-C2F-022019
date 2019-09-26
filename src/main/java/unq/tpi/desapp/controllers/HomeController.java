@@ -1,29 +1,28 @@
 package unq.tpi.desapp.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import unq.tpi.desapp.model.Provider;
-import unq.tpi.desapp.model.builders.ProviderBuilder;
-import unq.tpi.desapp.persistence.IProvider;
-
-import java.util.List;
+import unq.tpi.desapp.persistence.ProviderRepository;
 
 
 @RestController
 public class HomeController {
 
-    @Autowired
-    private IProvider provider;
+    private final ProviderRepository providerRepository;
 
+    HomeController(ProviderRepository providerRepository){
+        this.providerRepository = providerRepository;
+    }
 
-    @GetMapping("/")
-    public List<Provider> index() {
-        Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
-        Provider antares = new ProviderBuilder().withName("Antares").build();
-        provider.save(viri);
-        provider.save(antares);
-        return provider.findAll();
-        //return "Hola mundo";
+    @GetMapping(value = "/")
+    public String hello() {
+        return "Hello World";
+    }
+
+    @GetMapping("/providers")
+    public Iterable<Provider> index() {
+        return providerRepository.findAll();
     }
 }
