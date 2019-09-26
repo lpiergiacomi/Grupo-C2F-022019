@@ -17,7 +17,6 @@ public class Email {
 
         this.user = "contacto.viandasya@gmail.com";
         this.password = "viandas1234";
-
     }
 
     public void createEmailWith(String subject, String receiver, String message) {
