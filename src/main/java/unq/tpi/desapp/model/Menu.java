@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -43,27 +42,6 @@ public class Menu {
         this.name = name;
         this.description = description;
         this.categories = categories;
-        this.deliveryPrice = deliveryPrice;
-        this.validityDateBegin = validityDateBegin;
-        this.validityDateEnd = validityDateEnd;
-        this.deliveryTimeBegin = deliveryTimeBegin;
-        this.deliveryTimeEnd = deliveryTimeEnd;
-        this.price = price;
-        this.minQuantity = minQuantity;
-        this.minQuantity2 = minQuantity2;
-        this.maxSalesPerDay = maxSalesPerDay;
-        this.qualification = qualification;
-        this.provider = provider;
-
-        setMinQuantityPrice(minQuantityPrice);
-        setMinQuantityPrice2(minQuantityPrice2);
-
-    }
-
-    public Menu(String name, String description, int deliveryPrice, LocalDateTime validityDateBegin, LocalDateTime validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
-        this.name = name;
-        this.description = description;
-        this.categories = new ArrayList<>();
         this.deliveryPrice = deliveryPrice;
         this.validityDateBegin = validityDateBegin;
         this.validityDateEnd = validityDateEnd;

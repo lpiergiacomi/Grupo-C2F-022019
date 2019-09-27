@@ -1,15 +1,18 @@
 package unq.tpi.desapp.model.builders;
 
 import unq.tpi.desapp.model.Menu;
+import unq.tpi.desapp.model.MenuCategory;
 import unq.tpi.desapp.model.Provider;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class MenuBuilder {
 
     private String name;
     private String description;
+    private List<MenuCategory> categories;
     private int deliveryPrice;
     private LocalDateTime validityDateBegin;
     private LocalDateTime validityDateEnd;
@@ -32,6 +35,11 @@ public class MenuBuilder {
 
     public MenuBuilder withDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public MenuBuilder withCategories(List<MenuCategory> categories) {
+        this.categories = categories;
         return this;
     }
 
@@ -102,6 +110,6 @@ public class MenuBuilder {
 
 
     public Menu build() {
-        return new Menu(name, description, deliveryPrice, validityDateBegin, validityDateEnd, deliveryTimeBegin, deliveryTimeEnd, price, minQuantity, minQuantityPrice, minQuantity2, minQuantityPrice2, maxSalesPerDay, qualification, provider);
+        return new Menu(name, description, categories, deliveryPrice, validityDateBegin, validityDateEnd, deliveryTimeBegin, deliveryTimeEnd, price, minQuantity, minQuantityPrice, minQuantity2, minQuantityPrice2, maxSalesPerDay, qualification, provider);
     }
 }

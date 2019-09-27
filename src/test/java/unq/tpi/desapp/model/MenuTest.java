@@ -8,6 +8,8 @@ import unq.tpi.desapp.model.builders.ProviderBuilder;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +29,15 @@ public class MenuTest {
     public void testDescription() {
         Menu menu = new MenuBuilder().withDescription("Menú tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getDescription(), "Menú tradicional");
+    }
+
+    @Test
+    public void testCategories() {
+        List<MenuCategory> categories = new ArrayList<>();
+        MenuCategory category = MenuCategory.Pizza;
+        categories.add(category);
+        Menu menu = new MenuBuilder().withCategories(categories).withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
+        assertEquals(menu.getCategories().get(0), category);
     }
 
     @Test
@@ -68,24 +79,8 @@ public class MenuTest {
         Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getPrice(), 200);
     }
-
-
-    // TODO: Las cantidades mínimas deberán ser  mutuamente excluyentes entre los 2 segmentos.
+    // TODO:
     //  No se permiten mas ventas que la cantidad máxima.
-
-
-    @Test(expected = InvalidMinQuantityPriceException.class)
-    public void testPrice2() {
-        Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(300).withQuantityPrice2(400).build();
-        assertEquals(menu.getPrice(), 200);
-    }
-
-    @Test(expected = InvalidMinQuantityPrice2Exception.class)
-    public void testPrice3() {
-        Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(180).build();
-        assertEquals(menu.getPrice(), 200);
-    }
-
 
     @Test
     public void testMinQuantity() {
@@ -94,9 +89,15 @@ public class MenuTest {
     }
 
     @Test
-    public void testQuantityPrice() {
+    public void testMinQuantityPrice() {
         Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getMinQuantityPrice(), 150);
+    }
+
+    @Test(expected = InvalidMinQuantityPriceException.class)
+    public void testInvalidMinQuantityPrice() {
+        Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(300).withQuantityPrice2(400).build();
+        assertEquals(menu.getMinQuantityPrice(), 300);
     }
 
     @Test
@@ -106,9 +107,15 @@ public class MenuTest {
     }
 
     @Test
-    public void testQuantityPrice2() {
+    public void testMinQuantityPrice2() {
         Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getMinQuantityPrice2(), 100);
+    }
+
+    @Test(expected = InvalidMinQuantityPrice2Exception.class)
+    public void testInvalidMinQuantityPrice2() {
+        Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(180).build();
+        assertEquals(menu.getMinQuantityPrice2(), 180);
     }
 
     @Test

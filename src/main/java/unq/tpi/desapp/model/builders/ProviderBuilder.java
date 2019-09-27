@@ -21,7 +21,9 @@ public class ProviderBuilder {
     private LocalTime attentionTimeEnd;
     private DayOfWeek attentionDayBegin;
     private DayOfWeek attentionDayEnd;
+    private List<String> deliveryLocalities;
     private List<Menu> menus;
+    private int credit;
 
 
     public ProviderBuilder withName(String name) {
@@ -84,13 +86,22 @@ public class ProviderBuilder {
         return this;
     }
 
+    public ProviderBuilder withDeliveryLocalities(List<String> deliveryLocalities) {
+        this.deliveryLocalities = deliveryLocalities;
+        return this;
+    }
 
     public ProviderBuilder withMenus(List<Menu> menus) {
         this.menus = menus;
         return this;
     }
-    
+
+    public ProviderBuilder withCredit(int credit) {
+        this.credit = credit;
+        return this;
+    }
+
     public Provider build() {
-        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, attentionDayBegin, attentionDayEnd, menus);
+        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, attentionDayBegin, attentionDayEnd, deliveryLocalities, menus, credit);
     }
 }

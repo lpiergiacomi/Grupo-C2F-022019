@@ -3,6 +3,7 @@ package unq.tpi.desapp.model;
 import org.junit.Test;
 import unq.tpi.desapp.exceptions.MaxMenusException;
 import unq.tpi.desapp.model.builders.MenuBuilder;
+import unq.tpi.desapp.model.builders.MenuOrderBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 
 import java.time.DayOfWeek;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -96,12 +98,29 @@ public class ProviderTest {
         assertEquals(viri.getAttentionDayEnd(), day);
     }
 
+    @Test
+    public void testDeliveryLocalities() {
+        String locality = "Quilmes";
+        List<String> deliveryLocalities = new ArrayList<>();
+        deliveryLocalities.add(locality);
+        Provider viri = new ProviderBuilder().withDeliveryLocalities(deliveryLocalities).build();
+        assertEquals(viri.getDeliveryLocalities().get(0), "Quilmes");
+    }
 
     @Test
     public void testMenus() {
-        List<Menu> menus = new ArrayList();
+        List<Menu> menus = new ArrayList<>();
+        Menu menu = new MenuBuilder().withDescription("Menú tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
+        menus.add(menu);
         Provider viri = new ProviderBuilder().withMenus(menus).build();
-        assertEquals(viri.getMenus(), menus);
+        assertEquals(viri.getMenus().get(0).getDescription(), "Menú tradicional");
+    }
+
+    @Test
+    public void testCredit() {
+        int credit = 100;
+        Provider viri = new ProviderBuilder().withCredit(credit).build();
+        assertEquals(viri.getCredit(), credit);
     }
 
     /*
@@ -110,7 +129,7 @@ public class ProviderTest {
 
     @Test
     public void addMenuTest() {
-        List<Menu> menus = new ArrayList();
+        List<Menu> menus = new ArrayList<>();
         Provider viri = new ProviderBuilder().withMenus(menus).build();
         Menu menu = new MenuBuilder().withDescription("Menu").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         viri.addMenu(menu);
@@ -124,6 +143,23 @@ public class ProviderTest {
         Provider viri = new ProviderBuilder().withMenus(mockMenus).build();
         Menu menu = new MenuBuilder().withDescription("Menu").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         viri.addMenu(menu);
+    }
+
+    @Test
+    public void increaseCreditTest() {
+        Provider viri = new ProviderBuilder().withCredit(100).build();
+        viri.increaseCredit(100);
+        assertEquals(viri.getCredit(), 200);
+    }
+
+    @Test
+    public void hasEnoughMenuTest() {
+        Menu menu = new MenuBuilder().withDescription("Menu").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).withMaxSalesPerDay(2).build();
+        MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).withQuantity(1).build();
+        List<MenuOrder> menuOrders = new ArrayList<>();
+        menuOrders.add(menuOrder);
+        Provider viri = new ProviderBuilder().withCredit(100).build();
+        assertTrue(viri.hasEnoughMenu(menuOrders));
     }
 }
 

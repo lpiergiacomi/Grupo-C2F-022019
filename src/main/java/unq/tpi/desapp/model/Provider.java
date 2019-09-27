@@ -38,7 +38,7 @@ public class Provider {
     private List<Menu> menus;
     private int credit;
 
-    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, DayOfWeek attentionDayBegin, DayOfWeek attentionDayEnd, List<Menu> menus) {
+    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, DayOfWeek attentionDayBegin, DayOfWeek attentionDayEnd, List<String> deliveryLocalities, List<Menu> menus, int credit) {
         this.name = name;
         this.logo = logo;
         this.locality = locality;
@@ -51,9 +51,9 @@ public class Provider {
         this.attentionTimeEnd = attentionTimeEnd;
         this.attentionDayBegin = attentionDayBegin;
         this.attentionDayEnd = attentionDayEnd;
-        this.deliveryLocalities = new ArrayList<>();
+        this.deliveryLocalities = deliveryLocalities;
         this.menus = menus;
-        this.credit = 0;
+        this.credit = credit;
     }
 
     public Provider() {
