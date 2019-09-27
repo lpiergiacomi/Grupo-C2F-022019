@@ -16,6 +16,7 @@ public class EmailTest {
     public void validEMailTest() {
         Email email = new Email();
         email.validEmail(email.getUser());
+        assertEquals(email.getUser(), "contacto.viandasya@gmail.com");
     }
 
     @Test(expected = InvalidEmailException.class)
@@ -45,5 +46,4 @@ public class EmailTest {
 
         verify(emailSender, times(1)).sendEmail(email);
     }
-
 }

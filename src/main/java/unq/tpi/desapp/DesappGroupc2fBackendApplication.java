@@ -16,7 +16,7 @@ public class DesappGroupc2fBackendApplication {
     }
 
     @Bean
-    ApplicationRunner applicationRunner(ProviderRepository providerRepository){
+    ApplicationRunner applicationRunner(ProviderRepository providerRepository) {
         return args -> {
             providerRepository.save(new ProviderBuilder().withName("Proveedor 1").build());
             providerRepository.save(new ProviderBuilder().withName("Proveedor 2").build());
