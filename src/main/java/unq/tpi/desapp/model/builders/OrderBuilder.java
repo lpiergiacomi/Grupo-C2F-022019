@@ -1,21 +1,23 @@
 package unq.tpi.desapp.model.builders;
 
 import unq.tpi.desapp.model.Client;
+import unq.tpi.desapp.model.MenuOrder;
 import unq.tpi.desapp.model.Order;
 import unq.tpi.desapp.model.Provider;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class OrderBuilder {
 
     private Provider provider;
     private Client client;
+    private List<MenuOrder> menuOrders;
     private String deliveryType;
     private LocalDateTime deliveryDate;
     private LocalTime deliveryHour;
     private int amount;
-
 
     public OrderBuilder withProvider(Provider provider) {
         this.provider = provider;
@@ -24,6 +26,11 @@ public class OrderBuilder {
 
     public OrderBuilder withClient(Client client) {
         this.client = client;
+        return this;
+    }
+
+    public OrderBuilder withMenuOrders(List<MenuOrder> menuOrders) {
+        this.menuOrders = menuOrders;
         return this;
     }
 
@@ -49,6 +56,6 @@ public class OrderBuilder {
 
 
     public Order build() {
-        return new Order(provider, client, deliveryType, deliveryDate, deliveryHour, amount);
+        return new Order(provider, client, menuOrders, deliveryType, deliveryDate, deliveryHour, amount);
     }
 }

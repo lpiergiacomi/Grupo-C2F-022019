@@ -46,4 +46,5 @@ public class EmailTest {
 
         verify(emailSender, times(1)).sendEmail(email);
     }
+
 }

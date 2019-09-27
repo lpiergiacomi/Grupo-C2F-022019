@@ -48,6 +48,7 @@ public class MenuOrderTest {
         Menu menu = new MenuBuilder().withName("Tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).withMinQuantity2(3).build();
         MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).withQuantity(3).build();
         assertEquals(menuOrder.totalAmount(), 300);
+        assertEquals(menuOrder.getPrice(), 300);
     }
 
 }

@@ -23,10 +23,10 @@ public class Order {
     private int amount;
 
 
-    public Order(Provider provider, Client client, String deliveryType, LocalDateTime deliveryDate, LocalTime deliveryHour, int amount) {
+    public Order(Provider provider, Client client, List<MenuOrder> menuOrders, String deliveryType, LocalDateTime deliveryDate, LocalTime deliveryHour, int amount) {
         this.provider = provider;
         this.client = client;
-        this.menuOrders = new ArrayList<>();
+        this.menuOrders = menuOrders;
         this.deliveryType = deliveryType;
         this.deliveryDate = deliveryDate;
         this.deliveryHour = deliveryHour;

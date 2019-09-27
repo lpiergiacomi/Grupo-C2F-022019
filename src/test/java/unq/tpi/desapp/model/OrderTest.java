@@ -3,11 +3,14 @@ package unq.tpi.desapp.model;
 import org.junit.Test;
 import unq.tpi.desapp.model.builders.ClientBuilder;
 
+import unq.tpi.desapp.model.builders.MenuOrderBuilder;
 import unq.tpi.desapp.model.builders.OrderBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,6 +32,15 @@ public class OrderTest {
         Client client = new ClientBuilder().withFirstName("Esteban").build();
         Order order = new OrderBuilder().withClient(client).build();
         assertEquals(order.getClient(), client);
+    }
+
+    @Test
+    public void testMenuOrders() {
+        List<MenuOrder> menuOrders = new ArrayList<>();
+        MenuOrder menuOrder = new MenuOrderBuilder().withQuantity(1).build();
+        menuOrders.add(menuOrder);
+        Order order = new OrderBuilder().withMenuOrders(menuOrders).build();
+        assertEquals(order.getMenuOrders(), menuOrders);
     }
 
     @Test
@@ -62,7 +74,6 @@ public class OrderTest {
     /*
         End Test builder
      */
-
 
 
 }
