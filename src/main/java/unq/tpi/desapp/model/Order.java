@@ -41,23 +41,9 @@ public class Order {
         this.amount = 0;
     }
 
-    //public int totalMenus() {
-    //   int result = 0;
-    //    for (MenuOrder menuOrder : menuOrders) {
-    //        result += menuOrder.getQuantity();
-    //    }
-    //    return result;
-    //}
-
     public int totalMenus() {
         return menuOrders.stream()
                 .mapToInt(m -> m.getQuantity())
-                .sum();
-    }
-
-    public int totalAmount() {
-        return menuOrders.stream()
-                .mapToInt(m -> m.totalAmount())
                 .sum();
     }
 

@@ -11,9 +11,6 @@ public class ClientBuilder {
     private String locality;
     private String address;
     private int credit;
-    //private List<Menu> menus;
-    //private List<Order> orders;
-
 
     public ClientBuilder withFirstName(String firstName) {
         this.firstName = firstName;
@@ -49,18 +46,6 @@ public class ClientBuilder {
         this.credit = credit;
         return this;
     }
-
-    /*
-    public ClientBuilder withMenus(List<Menu> menus) {
-        this.menus = menus;
-        return this;
-    }
-
-    public ClientBuilder withOrders(List<Order> orders) {
-        this.orders = orders;
-        return this;
-    }
-    */
 
     public Client build() {
         return new Client(firstName, lastName, mail, phone, locality, address, credit);

@@ -1,7 +1,5 @@
 package unq.tpi.desapp.model.builders;
 
-
-
 import unq.tpi.desapp.model.Client;
 import unq.tpi.desapp.model.Order;
 import unq.tpi.desapp.model.Provider;
@@ -13,7 +11,6 @@ public class OrderBuilder {
 
     private Provider provider;
     private Client client;
-    // private List<MenuOrder> menuOrders;
     private String deliveryType;
     private LocalDateTime deliveryDate;
     private LocalTime deliveryHour;

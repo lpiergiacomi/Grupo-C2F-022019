@@ -8,10 +8,9 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Holiday {
-    private String motivo;
-    private String tipo;
-    private int dia;
-    private int mes;
+    private String reason;
+    private String type;
+    private int day;
+    private int month;
     private int id;
-
 }

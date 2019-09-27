@@ -24,7 +24,6 @@ public class Provider {
     private String logo;
     private String locality;
     private String address;
-    //private Coord coord;
     private String description;
     private String site;
     private String mail;
@@ -44,7 +43,6 @@ public class Provider {
         this.logo = logo;
         this.locality = locality;
         this.address = address;
-        //this.coord = coord;
         this.description = description;
         this.site = site;
         this.mail = mail;
@@ -59,7 +57,7 @@ public class Provider {
     }
 
     public Provider() {
-    } //Hibernate pide un default constructor
+    }
 
 
     public void addMenu(Menu menu) {
@@ -69,27 +67,11 @@ public class Provider {
         menus.add(menu);
     }
 
-    public void removeMenu(Menu menu) {
-        menus.remove(menu);
-    }
-
     public void increaseCredit(int credit) {
         this.credit += credit;
-    }
-
-    public void discountCredit(int credit) {
-        this.credit -= credit;
     }
 
     public boolean hasEnoughMenu(List<MenuOrder> menuOrders) {
         return menuOrders.stream().allMatch(m -> m.getMenu().getMaxSalesPerDay() >= m.getQuantity());
     }
-
-
-    /*
-    public List<Menu> searchMenuName(String nameMenu) {
-        List<Menu> menuResults = this.menus.stream().filter(menu -> menu.getName().equals(nameMenu)).collect(Collectors.toList());
-        return menuResults;
-    }
-    */
 }

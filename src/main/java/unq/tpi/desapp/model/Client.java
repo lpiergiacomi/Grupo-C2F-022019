@@ -48,16 +48,15 @@ public class Client {
         this.credit -= credit;
     }
 
-
     public boolean hasEnoughCredit(List<MenuOrder> menuOrders) {
-        return menuOrders.stream().allMatch(m -> m.totalAmount() <= this.credit);
+        int amount = menuOrders.stream().mapToInt(m -> m.totalAmount()).sum();
+        return amount <= this.getCredit();
     }
 
     public void paymentOrder(Provider provider, List<MenuOrder> menuOrders, LocalDateTime deliveryDate) {
         if (this.deliveryDateValid(deliveryDate)) {
             if (provider.hasEnoughMenu(menuOrders)) {
                 if (this.hasEnoughCredit(menuOrders)) {
-                    //Order order = new OrderBuilder().withMenu(menu).withCantidad(cantidad).withFechaEntrega(deliveryDate).build();
                     Order order = new Order(provider, this, deliveryDate);
                     order.sendConfirmationEmails();
                     order.decreaseClientCredit(order.totalMenus());

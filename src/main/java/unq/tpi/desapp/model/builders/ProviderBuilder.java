@@ -13,7 +13,6 @@ public class ProviderBuilder {
     private String logo;
     private String locality;
     private String address;
-    //private Coord coord;
     private String description;
     private String site;
     private String mail;
@@ -22,7 +21,6 @@ public class ProviderBuilder {
     private LocalTime attentionTimeEnd;
     private DayOfWeek attentionDayBegin;
     private DayOfWeek attentionDayEnd;
-    //private List<String> deliveryLocalities;
     private List<Menu> menus;
 
 
@@ -91,8 +89,7 @@ public class ProviderBuilder {
         this.menus = menus;
         return this;
     }
-
-
+    
     public Provider build() {
         return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, attentionDayBegin, attentionDayEnd, menus);
     }

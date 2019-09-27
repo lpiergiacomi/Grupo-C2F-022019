@@ -10,7 +10,6 @@ public class MenuBuilder {
 
     private String name;
     private String description;
-    //private List<MenuCategory> categories;
     private int deliveryPrice;
     private LocalDateTime validityDateBegin;
     private LocalDateTime validityDateEnd;

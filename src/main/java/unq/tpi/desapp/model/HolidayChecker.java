@@ -11,40 +11,40 @@ import java.util.stream.Collectors;
 public class HolidayChecker {
 
     RestTemplate restTemplate = new RestTemplate();
-    List feriados;
+    List holidays;
 
 
-    public HolidayChecker(int año) {
-        String url = "http://nolaborables.com.ar/api/v2/feriados/" + año;
-        this.feriados = restTemplate.getForObject(url, List.class);
+    public HolidayChecker(int year) {
+        String url = "http://nolaborables.com.ar/api/v2/feriados/" + year;
+        this.holidays = restTemplate.getForObject(url, List.class);
     }
 
-    public List<LocalDateTime> filterWorkingDays(List<LocalDateTime> dias) {
-        return this.sacarFeriados(this.sacarFinesDeSemana(dias));
+    public List<LocalDateTime> filterWorkingDays(List<LocalDateTime> days) {
+        return this.removeHolidays(this.removeWeekends(days));
     }
 
 
-    public List<LocalDateTime> sacarFeriados(List<LocalDateTime> dias) {
-        return dias.stream().filter(dia -> !this.isHoliday(dia))
+    public List<LocalDateTime> removeHolidays(List<LocalDateTime> days) {
+        return days.stream().filter(day -> !this.isHoliday(day))
                 .collect(Collectors.toList());
     }
 
 
-    public List<LocalDateTime> sacarFinesDeSemana(List<LocalDateTime> dias) {
-        return dias.stream().filter(dia -> !this.isWeekend(dia))
+    public List<LocalDateTime> removeWeekends(List<LocalDateTime> days) {
+        return days.stream().filter(day -> !this.isWeekend(day))
                 .collect(Collectors.toList());
     }
 
 
-    public boolean isHoliday(LocalDateTime fecha) {
-        long count = this.feriados.stream().filter(feriado -> new Gson().toJsonTree(feriado).getAsJsonObject().get("dia").getAsInt() == fecha.getDayOfMonth()
-                && new Gson().toJsonTree(feriado).getAsJsonObject().get("mes").getAsInt() == fecha.getMonthValue())
+    public boolean isHoliday(LocalDateTime date) {
+        long count = this.holidays.stream().filter(holiday -> new Gson().toJsonTree(holiday).getAsJsonObject().get("dia").getAsInt() == date.getDayOfMonth()
+                && new Gson().toJsonTree(holiday).getAsJsonObject().get("mes").getAsInt() == date.getMonthValue())
                 .count();
         return count > 0;
     }
 
 
-    public boolean isWeekend(LocalDateTime fecha) {
-        return fecha.getDayOfWeek() == DayOfWeek.SATURDAY || fecha.getDayOfWeek() == DayOfWeek.SUNDAY;
+    public boolean isWeekend(LocalDateTime date) {
+        return date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
     }
 }
