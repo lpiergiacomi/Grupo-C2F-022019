@@ -33,6 +33,7 @@ public class Provider {
     private LocalTime attentionTimeEnd;
     private DayOfWeek attentionDayBegin;
     private DayOfWeek attentionDayEnd;
+    @ElementCollection
     private List<String> deliveryLocalities;
     @ElementCollection
     private List<Menu> menus;

@@ -5,6 +5,7 @@ import lombok.Setter;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPrice2Exception;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPriceException;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -21,6 +22,7 @@ public class Menu {
     @Id
     private String name;
     private String description;
+    @ElementCollection
     private List<MenuCategory> categories;
     private int deliveryPrice;
     private LocalDateTime validityDateBegin;
