@@ -3,6 +3,8 @@ package unq.tpi.desapp.model.builders;
 import unq.tpi.desapp.model.Menu;
 import unq.tpi.desapp.model.Provider;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 
 public class ProviderBuilder {
@@ -16,69 +18,82 @@ public class ProviderBuilder {
     private String site;
     private String mail;
     private String phone;
-    private String attentionTime;
-    private int deliveryRadius;
+    private LocalTime attentionTimeBegin;
+    private LocalTime attentionTimeEnd;
+    private DayOfWeek attentionDayBegin;
+    private DayOfWeek attentionDayEnd;
+    //private List<String> deliveryLocalities;
     private List<Menu> menus;
 
 
-    public ProviderBuilder withName(String name){
+    public ProviderBuilder withName(String name) {
         this.name = name;
         return this;
     }
 
-    public ProviderBuilder withLogo(String logo){
+    public ProviderBuilder withLogo(String logo) {
         this.logo = logo;
         return this;
     }
 
-    public ProviderBuilder withLocality(String locality){
+    public ProviderBuilder withLocality(String locality) {
         this.locality = locality;
         return this;
     }
 
-    public ProviderBuilder withAddress(String address){
+    public ProviderBuilder withAddress(String address) {
         this.address = address;
         return this;
     }
 
-    public ProviderBuilder withDescription(String description){
+    public ProviderBuilder withDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public ProviderBuilder withSite(String site){
+    public ProviderBuilder withSite(String site) {
         this.site = site;
         return this;
     }
 
-    public ProviderBuilder withMail(String mail){
+    public ProviderBuilder withMail(String mail) {
         this.mail = mail;
         return this;
     }
 
-    public ProviderBuilder withPhone(String phone){
+    public ProviderBuilder withPhone(String phone) {
         this.phone = phone;
         return this;
     }
 
-    public ProviderBuilder withAttentionTime(String attentionTime){
-        this.attentionTime = attentionTime;
+    public ProviderBuilder withAttentionTimeBegin(LocalTime attentionTimeBegin) {
+        this.attentionTimeBegin = attentionTimeBegin;
         return this;
     }
 
-    public ProviderBuilder withDeliveryRadius(int deliveryRadius){
-        this.deliveryRadius = deliveryRadius;
+    public ProviderBuilder withAttentionTimeEnd(LocalTime attentionTimeEnd) {
+        this.attentionTimeEnd = attentionTimeEnd;
         return this;
     }
 
-    public ProviderBuilder withMenus(List<Menu> menus){
+    public ProviderBuilder withAttentionDayBegin(DayOfWeek attentionDayBegin) {
+        this.attentionDayBegin = attentionDayBegin;
+        return this;
+    }
+
+    public ProviderBuilder withAttentionDayEnd(DayOfWeek attentionDayEnd) {
+        this.attentionDayEnd = attentionDayEnd;
+        return this;
+    }
+
+
+    public ProviderBuilder withMenus(List<Menu> menus) {
         this.menus = menus;
         return this;
     }
 
 
-
     public Provider build() {
-        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTime, deliveryRadius, menus);
+        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, attentionDayBegin, attentionDayEnd, menus);
     }
 }

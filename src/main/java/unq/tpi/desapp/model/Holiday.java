@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Feriado {
+public class Holiday {
     private String motivo;
     private String tipo;
     private int dia;
