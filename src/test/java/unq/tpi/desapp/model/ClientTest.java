@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 
 public class ClientTest {
@@ -86,10 +87,10 @@ public class ClientTest {
     public void hasNoCreditsForMenuTest() {
         Client esteban = new ClientBuilder().withCredit(80).build();
         Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
-        MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).build();
+        MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).withQuantity(1).build();
         List<MenuOrder> menuOrders = new ArrayList<>();
         menuOrders.add(menuOrder);
-        assertEquals(esteban.hasEnoughCredit(menuOrders), false);
+        assertFalse(esteban.hasEnoughCredit(menuOrders));
     }
 
 
@@ -125,7 +126,7 @@ public class ClientTest {
         Client esteban = new ClientBuilder().withCredit(90).build();
         Provider provider = new ProviderBuilder().build();
         Menu menu = new MenuBuilder().withMaxSalesPerDay(99).withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
-        MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).build();
+        MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).withQuantity(1).build();
         List<MenuOrder> menuOrders = new ArrayList<>();
         menuOrders.add(menuOrder);
         esteban.paymentOrder(provider, menuOrders, deliveryDate);

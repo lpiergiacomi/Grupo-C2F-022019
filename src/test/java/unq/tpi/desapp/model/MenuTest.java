@@ -79,8 +79,6 @@ public class MenuTest {
         Menu menu = new MenuBuilder().withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getPrice(), 200);
     }
-    // TODO:
-    //  No se permiten mas ventas que la cantidad máxima.
 
     @Test
     public void testMinQuantity() {

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.ArrayList;
+
 
 @Getter
 @Setter

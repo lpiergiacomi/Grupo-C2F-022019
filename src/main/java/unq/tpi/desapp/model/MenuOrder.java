@@ -19,11 +19,11 @@ public class MenuOrder {
 
     public int totalAmount() {
         if (this.getMenu().getMinQuantity() == getQuantity()) {
-            this.price += this.getMenu().getMinQuantityPrice();
+            this.price += this.getMenu().getMinQuantityPrice() * this.getQuantity();
         } else if (this.getMenu().getMinQuantity2() == getQuantity()) {
-            this.price += this.getMenu().getMinQuantityPrice2();
+            this.price += this.getMenu().getMinQuantityPrice2() * this.getQuantity();
         } else {
-            this.price += this.getMenu().getPrice();
+            this.price += this.getMenu().getPrice() * this.getQuantity();
         }
         //TODO
         // Falta el caso que la cantidad que quiere comprar el cliente es mayor a minQuantityPrice o
