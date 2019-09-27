@@ -2,6 +2,8 @@ package unq.tpi.desapp.model;
 
 import org.junit.Test;
 import unq.tpi.desapp.exceptions.MaxMenusException;
+import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.model.menu.MenuOrder;
 import unq.tpi.desapp.model.builders.MenuBuilder;
 import unq.tpi.desapp.model.builders.MenuOrderBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
@@ -23,83 +25,83 @@ public class ProviderTest {
      */
 
     @Test
-    public void testName() {
+    public void nameTest() {
         Provider viri = new ProviderBuilder().withName("Viri Burguer").build();
         assertEquals(viri.getName(), "Viri Burguer");
     }
 
     @Test
-    public void testLogo() {
+    public void logoTest() {
         Provider viri = new ProviderBuilder().withLogo("Logo").build();
         assertEquals(viri.getLogo(), "Logo");
     }
 
     @Test
-    public void testLocality() {
+    public void localityTest() {
         Provider viri = new ProviderBuilder().withLocality("Bernal").build();
         assertEquals(viri.getLocality(), "Bernal");
     }
 
     @Test
-    public void testAddress() {
+    public void addressTest() {
         Provider viri = new ProviderBuilder().withAddress("25 de Mayo 161").build();
         assertEquals(viri.getAddress(), "25 de Mayo 161");
     }
 
     @Test
-    public void testDescription() {
+    public void descriptionTest() {
         Provider viri = new ProviderBuilder().withDescription("Hamburgueseria").build();
         assertEquals(viri.getDescription(), "Hamburgueseria");
     }
 
     @Test
-    public void testSite() {
+    public void siteTest() {
         Provider viri = new ProviderBuilder().withSite("viri.com.ar").build();
         assertEquals(viri.getSite(), "viri.com.ar");
     }
 
     @Test
-    public void testMail() {
+    public void mailTest() {
         Provider viri = new ProviderBuilder().withMail("contacto@viri.com").build();
         assertEquals(viri.getMail(), "contacto@viri.com");
     }
 
     @Test
-    public void testPhone() {
+    public void phoneTest() {
         Provider viri = new ProviderBuilder().withPhone("123456789").build();
         assertEquals(viri.getPhone(), "123456789");
     }
 
     @Test
-    public void testAttentionTimeBegin() {
+    public void attentionTimeBeginTest() {
         LocalTime time = LocalTime.of(9, 30);
         Provider viri = new ProviderBuilder().withAttentionTimeBegin(time).build();
         assertEquals(viri.getAttentionTimeBegin(), time);
     }
 
     @Test
-    public void testAttentionTimeEnd() {
+    public void attentionTimeEndTest() {
         LocalTime time = LocalTime.of(9, 30);
         Provider viri = new ProviderBuilder().withAttentionTimeEnd(time).build();
         assertEquals(viri.getAttentionTimeEnd(), time);
     }
 
     @Test
-    public void testAttentionDayBegin() {
+    public void attentionDayBeginTest() {
         DayOfWeek day = DayOfWeek.SATURDAY;
         Provider viri = new ProviderBuilder().withAttentionDayBegin(day).build();
         assertEquals(viri.getAttentionDayBegin(), day);
     }
 
     @Test
-    public void testAttentionDayEnd() {
+    public void attentionDayEndTest() {
         DayOfWeek day = DayOfWeek.SATURDAY;
         Provider viri = new ProviderBuilder().withAttentionDayEnd(day).build();
         assertEquals(viri.getAttentionDayEnd(), day);
     }
 
     @Test
-    public void testDeliveryLocalities() {
+    public void deliveryLocalitiesTest() {
         String locality = "Quilmes";
         List<String> deliveryLocalities = new ArrayList<>();
         deliveryLocalities.add(locality);
@@ -108,7 +110,7 @@ public class ProviderTest {
     }
 
     @Test
-    public void testMenus() {
+    public void menusTest() {
         List<Menu> menus = new ArrayList<>();
         Menu menu = new MenuBuilder().withDescription("Menú tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         menus.add(menu);
@@ -117,7 +119,7 @@ public class ProviderTest {
     }
 
     @Test
-    public void testCredit() {
+    public void creditTest() {
         int credit = 100;
         Provider viri = new ProviderBuilder().withCredit(credit).build();
         assertEquals(viri.getCredit(), credit);

@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp.model.menu;
 
 import org.junit.Test;
 import unq.tpi.desapp.model.builders.MenuBuilder;
@@ -13,14 +13,14 @@ public class MenuOrderTest {
      */
 
     @Test
-    public void testMenu() {
+    public void menuTest() {
         Menu menu = new MenuBuilder().withName("Tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).build();
         assertEquals(menuOrder.getMenu(), menu);
     }
 
     @Test
-    public void testQuantity() {
+    public void quantityTest() {
         MenuOrder menuOrder = new MenuOrderBuilder().withQuantity(1).build();
         assertEquals(menuOrder.getQuantity(), 1);
     }

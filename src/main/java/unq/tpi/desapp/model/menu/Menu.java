@@ -1,9 +1,10 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp.model.menu;
 
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPrice2Exception;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPriceException;
+import unq.tpi.desapp.model.Provider;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;

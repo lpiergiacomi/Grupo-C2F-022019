@@ -1,6 +1,7 @@
 package unq.tpi.desapp.model;
 
 import org.junit.Test;
+import unq.tpi.desapp.model.menu.MenuOrder;
 import unq.tpi.desapp.model.builders.ClientBuilder;
 
 import unq.tpi.desapp.model.builders.MenuOrderBuilder;
@@ -21,21 +22,21 @@ public class OrderTest {
      */
 
     @Test
-    public void testProvider() {
+    public void providerTest() {
         Provider provider = new ProviderBuilder().withName("McDonalds").build();
         Order order = new OrderBuilder().withProvider(provider).build();
         assertEquals(order.getProvider(), provider);
     }
 
     @Test
-    public void testClient() {
+    public void clientTest() {
         Client client = new ClientBuilder().withFirstName("Esteban").build();
         Order order = new OrderBuilder().withClient(client).build();
         assertEquals(order.getClient(), client);
     }
 
     @Test
-    public void testMenuOrders() {
+    public void menuOrdersTest() {
         List<MenuOrder> menuOrders = new ArrayList<>();
         MenuOrder menuOrder = new MenuOrderBuilder().withQuantity(1).build();
         menuOrders.add(menuOrder);
@@ -44,28 +45,28 @@ public class OrderTest {
     }
 
     @Test
-    public void testDeliveryDeliveryType() {
+    public void deliveryDeliveryTypeTest() {
         Order order = new OrderBuilder().withDeliveryType("tipoDelivery").build();
         assertEquals(order.getDeliveryType(), "tipoDelivery");
     }
 
 
     @Test
-    public void testDeliveryDate() {
+    public void deliveryDateTest() {
         LocalDateTime date = LocalDateTime.of(2019, 07, 22, 9, 30);
         Order order = new OrderBuilder().withDeliveryDate(date).build();
         assertEquals(order.getDeliveryDate(), date);
     }
 
     @Test
-    public void testDeliveryHour() {
+    public void deliveryHourTest() {
         LocalTime time = LocalTime.of(9, 30);
         Order order = new OrderBuilder().withDeliveryHour(time).build();
         assertEquals(order.getDeliveryHour(), time);
     }
 
     @Test
-    public void testAmount() {
+    public void amountTest() {
         Order order = new OrderBuilder().withAmount(200).build();
         assertEquals(order.getAmount(), 200);
     }

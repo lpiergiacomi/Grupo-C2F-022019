@@ -1,7 +1,7 @@
 package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.model.Menu;
-import unq.tpi.desapp.model.MenuOrder;
+import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.model.menu.MenuOrder;
 
 public class MenuOrderBuilder {
 

@@ -1,7 +1,7 @@
 package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.model.Menu;
-import unq.tpi.desapp.model.MenuCategory;
+import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.model.menu.MenuCategory;
 import unq.tpi.desapp.model.Provider;
 
 import java.time.LocalDateTime;

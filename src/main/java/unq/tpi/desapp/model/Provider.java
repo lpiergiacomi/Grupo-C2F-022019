@@ -3,6 +3,8 @@ package unq.tpi.desapp.model;
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MaxMenusException;
+import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.model.menu.MenuOrder;
 
 import javax.persistence.*;
 import java.util.List;

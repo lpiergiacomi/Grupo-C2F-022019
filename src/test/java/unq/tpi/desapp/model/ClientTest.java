@@ -4,6 +4,8 @@ import org.junit.Test;
 import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
 import unq.tpi.desapp.exceptions.MenuSalesExceededException;
+import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.model.menu.MenuOrder;
 import unq.tpi.desapp.model.builders.ClientBuilder;
 import unq.tpi.desapp.model.builders.MenuBuilder;
 import unq.tpi.desapp.model.builders.MenuOrderBuilder;
@@ -24,43 +26,43 @@ public class ClientTest {
      */
 
     @Test
-    public void testFirstName() {
+    public void firstNameTest() {
         Client esteban = new ClientBuilder().withFirstName("Esteban").build();
         assertEquals(esteban.getFirstName(), "Esteban");
     }
 
     @Test
-    public void testLastName() {
+    public void lastNameTest() {
         Client esteban = new ClientBuilder().withLastName("Matas").build();
         assertEquals(esteban.getLastName(), "Matas");
     }
 
     @Test
-    public void testMail() {
+    public void mailTest() {
         Client esteban = new ClientBuilder().withMail("estebanmatas13@gmail.com").build();
         assertEquals(esteban.getMail(), "estebanmatas13@gmail.com");
     }
 
     @Test
-    public void testPhone() {
+    public void phoneTest() {
         Client esteban = new ClientBuilder().withPhone("1122334455").build();
         assertEquals(esteban.getPhone(), "1122334455");
     }
 
     @Test
-    public void testLocality() {
+    public void localityTest() {
         Client esteban = new ClientBuilder().withLocality("Quilmes").build();
         assertEquals(esteban.getLocality(), "Quilmes");
     }
 
     @Test
-    public void testAddress() {
+    public void addressTest() {
         Client esteban = new ClientBuilder().withAddress("Av Calchaqui 666").build();
         assertEquals(esteban.getAddress(), "Av Calchaqui 666");
     }
 
     @Test
-    public void testCredit() {
+    public void creditTest() {
         Client esteban = new ClientBuilder().withCredit(150).build();
         assertEquals(esteban.getCredit(), 150);
     }

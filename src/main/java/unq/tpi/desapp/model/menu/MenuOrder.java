@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp.model.menu;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +25,6 @@ public class MenuOrder {
         } else {
             this.price += this.getMenu().getPrice() * this.getQuantity();
         }
-        //TODO
-        // Falta el caso que la cantidad que quiere comprar el cliente es mayor a minQuantityPrice o
-        // minQuantityPrice2, deberia mejorarse el precio.
 
         return this.price;
     }

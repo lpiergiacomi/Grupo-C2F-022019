@@ -1,7 +1,7 @@
 package unq.tpi.desapp.model.builders;
 
 import unq.tpi.desapp.model.Client;
-import unq.tpi.desapp.model.MenuOrder;
+import unq.tpi.desapp.model.menu.MenuOrder;
 import unq.tpi.desapp.model.Order;
 import unq.tpi.desapp.model.Provider;
 
