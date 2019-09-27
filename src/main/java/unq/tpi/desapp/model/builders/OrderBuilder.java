@@ -1,6 +1,10 @@
 package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.model.*;
+
+
+import unq.tpi.desapp.model.Client;
+import unq.tpi.desapp.model.Order;
+import unq.tpi.desapp.model.Provider;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

@@ -1,6 +1,5 @@
 package unq.tpi.desapp.model.builders;
 
-import unq.tpi.desapp.model.Coord;
 import unq.tpi.desapp.model.Menu;
 import unq.tpi.desapp.model.Provider;
 
@@ -23,9 +22,8 @@ public class ProviderBuilder {
     private LocalTime attentionTimeEnd;
     private DayOfWeek attentionDayBegin;
     private DayOfWeek attentionDayEnd;
-    private List<String> deliveryLocalities;
+    //private List<String> deliveryLocalities;
     private List<Menu> menus;
-    private int credit;
 
 
     public ProviderBuilder withName(String name) {
@@ -88,19 +86,9 @@ public class ProviderBuilder {
         return this;
     }
 
-    public ProviderBuilder withDeliveryLocalities(List<String> deliveryLocalities) {
-        this.deliveryLocalities = deliveryLocalities;
-        return this;
-    }
 
     public ProviderBuilder withMenus(List<Menu> menus) {
         this.menus = menus;
-        return this;
-    }
-
-
-    public ProviderBuilder withCredit(int credit) {
-        this.credit = credit;
         return this;
     }
 

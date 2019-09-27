@@ -1,10 +1,6 @@
 package unq.tpi.desapp.model.builders;
 
 import unq.tpi.desapp.model.Client;
-import unq.tpi.desapp.model.Menu;
-import unq.tpi.desapp.model.Order;
-
-import java.util.List;
 
 public class ClientBuilder {
 
