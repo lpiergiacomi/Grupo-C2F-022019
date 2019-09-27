@@ -2,10 +2,9 @@ package unq.tpi.desapp.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import unq.tpi.desapp.exceptions.CreditoInsuficiente;
-import unq.tpi.desapp.exceptions.FechaDeEntregaInvalida;
-import unq.tpi.desapp.exceptions.VentasDeMenuExcedidas;
-import unq.tpi.desapp.model.builders.OrderBuilder;
+import unq.tpi.desapp.exceptions.InsufficientCreditException;
+import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
+import unq.tpi.desapp.exceptions.MenuSalesExceededException;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 
 @Getter
 @Setter
@@ -36,58 +36,59 @@ public class Client {
         this.locality = locality;
         this.address = address;
         this.credit = credit;
-        this.menus = new ArrayList<Menu>();
-        this.orders = new ArrayList<Order>();
+        this.menus = new ArrayList<>();
+        this.orders = new ArrayList<>();
     }
 
-    public void depositarCredito(int credito){
-        this.credit += credito;
+    public void increaseCredit(int credit) {
+        this.credit += credit;
     }
 
-    public void retirarCredito(int credito){ this.credit -= credito; }
+    public void discountCredit(int credit) {
+        this.credit -= credit;
+    }
 
-    public void createOrder(Provider provider, Menu menu, int cantidad, LocalDateTime fechaDeEntrega){
-        //todo
-        // falta tipoDeEntrega
-        if (fechaDeEntregaValida(fechaDeEntrega)){
-            if (provider.tieneSuficientesMenus(menu, cantidad)){
-                if (this.tieneCreditoParaMenu(menu, cantidad)){
-                    this.retirarCredito(cantidad * menu.getPrice());
-                    // agregar credito al provider?
-                    Order order = new OrderBuilder().withMenu(menu).withCantidad(cantidad).withFechaEntrega(fechaDeEntrega).build();
-                    this.orders.add(order);
+
+    public boolean hasEnoughCredit(List<MenuOrder> menuOrders) {
+        return menuOrders.stream().allMatch(m -> m.totalAmount() <= this.credit);
+    }
+
+    public void paymentOrder(Provider provider, List<MenuOrder> menuOrders, LocalDateTime deliveryDate) {
+        if (this.deliveryDateValid(deliveryDate)) {
+            if (provider.hasEnoughMenu(menuOrders)) {
+                if (this.hasEnoughCredit(menuOrders)) {
+                    //Order order = new OrderBuilder().withMenu(menu).withCantidad(cantidad).withFechaEntrega(deliveryDate).build();
+                    Order order = new Order(provider, this, deliveryDate);
+                    order.sendConfirmationEmails();
+                    order.decreaseClientCredit(order.totalMenus());
+                    order.increaseProviderCredit(order.totalMenus());
+                    orders.add(order);
+                } else {
+                    throw new InsufficientCreditException("No dispones de crédito para comprar este menú");
                 }
-                else {
-                    throw new CreditoInsuficiente("No dispones de crédito para comprar este menú");
-                }
+            } else {
+                throw new MenuSalesExceededException("El proveedor excedió las ventas para este menú");
             }
-            else {
-                throw new VentasDeMenuExcedidas("El proveedor excedió las ventas para este menú");
-            }
-        }
-        else {
-            throw new FechaDeEntregaInvalida("La fecha de entrega es muy pronto");
+        } else {
+            throw new InvalidDeliveryDateException("La fecha de entrega es muy pronto");
         }
     }
 
-    public boolean tieneCreditoParaMenu(Menu menu, int cantidad) {
-        return this.credit >= cantidad * menu.getPrice();
-    }
-
-    private boolean fechaDeEntregaValida(LocalDateTime fechaDeEntrega){
+    private boolean deliveryDateValid(LocalDateTime deliveryDate) {
         // Chequea que falten por lo menos 48 horas para la fecha de entrega, contemplando sólo días hábiles.
-        LocalDateTime desde = LocalDateTime.now();
+        LocalDateTime from = LocalDateTime.now();
 
-        long numOfDaysBetween = ChronoUnit.DAYS.between(desde, fechaDeEntrega);
-        List dias =  IntStream.iterate(0, i -> i + 1)
+        long numOfDaysBetween = ChronoUnit.DAYS.between(from, deliveryDate);
+        List days = IntStream.iterate(0, i -> i + 1)
                 .limit(numOfDaysBetween)
-                .mapToObj(i -> desde.plusDays(i))
+                .mapToObj(i -> from.plusDays(i))
                 .collect(Collectors.toList());
 
-        FeriadoChecker feriadoChecker = new FeriadoChecker(desde.getYear());
-        feriadoChecker.filtarDiasHabiles(dias);
+        HolidayChecker holidayChecker = new HolidayChecker(from.getYear());
+        holidayChecker.filterWorkingDays(days);
 
-        return ChronoUnit.HOURS.between(LocalDateTime.now(), fechaDeEntrega) > 48;
+        return ChronoUnit.HOURS.between(LocalDateTime.now(), deliveryDate) > 48;
 
     }
+
 }

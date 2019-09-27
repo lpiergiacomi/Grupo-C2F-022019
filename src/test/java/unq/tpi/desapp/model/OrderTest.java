@@ -1,8 +1,10 @@
 package unq.tpi.desapp.model;
 
 import org.junit.Test;
+import unq.tpi.desapp.model.builders.ClientBuilder;
 import unq.tpi.desapp.model.builders.MenuBuilder;
 import unq.tpi.desapp.model.builders.OrderBuilder;
+import unq.tpi.desapp.model.builders.ProviderBuilder;
 
 import java.time.LocalDateTime;
 
@@ -15,24 +17,19 @@ public class OrderTest {
      */
 
     @Test
-    public void testMenu(){
-        Menu menu = new MenuBuilder().build();
-        Order order = new OrderBuilder().withMenu(menu).build();
-        assertEquals(order.getMenu(), menu);
+    public void testProvider() {
+        Provider provider = new ProviderBuilder().withName("McDonalds").build();
+        Order order = new OrderBuilder().withProvider(provider).build();
+        assertEquals(order.getProvider(), provider);
     }
 
     @Test
-    public void testCantidad(){
-        Order order = new OrderBuilder().withCantidad(2).build();
-        assertEquals(order.getCantidad(), 2);
+    public void testClient() {
+        Client client = new ClientBuilder().withFirstName("Esteban").build();
+        Order order = new OrderBuilder().withClient(client).build();
+        assertEquals(order.getClient(), client);
     }
 
-    @Test
-    public void testFechaEntrega(){
-        LocalDateTime fechaEntrega = LocalDateTime.now();
-        Order order = new OrderBuilder().withFechaEntrega(fechaEntrega).build();
-        assertEquals(order.getFechaEntrega(), fechaEntrega);
-    }
 
     /*
         End Test builder

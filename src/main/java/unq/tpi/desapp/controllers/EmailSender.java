@@ -14,6 +14,18 @@ import java.util.Properties;
 
 public class EmailSender {
 
+    private static EmailSender instance = null;
+
+    private EmailSender() {
+    }
+
+    public static EmailSender getInstance() {
+        if (instance == null) {
+            instance = new EmailSender();
+        }
+        return instance;
+    }
+
     public void sendEmail(Email mail) {
 
         try {

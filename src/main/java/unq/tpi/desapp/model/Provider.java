@@ -2,10 +2,13 @@ package unq.tpi.desapp.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import unq.tpi.desapp.exceptions.MenusMaximos;
+import unq.tpi.desapp.exceptions.MaxMenusException;
 
 import javax.persistence.*;
 import java.util.List;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -26,12 +29,16 @@ public class Provider {
     private String site;
     private String mail;
     private String phone;
-    private String attentionTime;
-    private int deliveryRadius;
+    private LocalTime attentionTimeBegin;
+    private LocalTime attentionTimeEnd;
+    private DayOfWeek attentionDayBegin;
+    private DayOfWeek attentionDayEnd;
+    private List<String> deliveryLocalities;
     @ElementCollection
     private List<Menu> menus;
+    private int credit;
 
-    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, String attentionTime, int deliveryRadius, List<Menu> menus) {
+    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, DayOfWeek attentionDayBegin, DayOfWeek attentionDayEnd, List<Menu> menus) {
         this.name = name;
         this.logo = logo;
         this.locality = locality;
@@ -41,9 +48,13 @@ public class Provider {
         this.site = site;
         this.mail = mail;
         this.phone = phone;
-        this.attentionTime = attentionTime; // Cambiar
-        this.deliveryRadius = deliveryRadius; // Cambiar
+        this.attentionTimeBegin = attentionTimeBegin;
+        this.attentionTimeEnd = attentionTimeEnd;
+        this.attentionDayBegin = attentionDayBegin;
+        this.attentionDayEnd = attentionDayEnd;
+        this.deliveryLocalities = new ArrayList<>();
         this.menus = menus;
+        this.credit = 0;
     }
 
     public Provider() {
@@ -52,14 +63,27 @@ public class Provider {
 
     public void addMenu(Menu menu) {
         if (this.menus.size() == 20) {
-            throw new MenusMaximos("No se pueden agregar más menu");
+            throw new MaxMenusException("No se pueden agregar más menu");
         }
         menus.add(menu);
     }
 
-    public boolean tieneSuficientesMenus(Menu menu, int cantidad) {
-        return menu.getMaxSalesPerDay() >= cantidad;
+    public void removeMenu(Menu menu) {
+        menus.remove(menu);
     }
+
+    public void increaseCredit(int credit) {
+        this.credit += credit;
+    }
+
+    public void discountCredit(int credit) {
+        this.credit -= credit;
+    }
+
+    public boolean hasEnoughMenu(List<MenuOrder> menuOrders) {
+        return menuOrders.stream().allMatch(m -> m.getMenu().getMaxSalesPerDay() >= m.getQuantity());
+    }
+
 
     /*
     public List<Menu> searchMenuName(String nameMenu) {
