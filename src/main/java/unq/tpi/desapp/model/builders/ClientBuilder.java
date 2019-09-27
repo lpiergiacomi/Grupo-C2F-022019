@@ -15,8 +15,8 @@ public class ClientBuilder {
     private String locality;
     private String address;
     private int credit;
-    private List<Menu> menus;
-    private List<Order> orders;
+    //private List<Menu> menus;
+    //private List<Order> orders;
 
 
     public ClientBuilder withFirstName(String firstName) {
