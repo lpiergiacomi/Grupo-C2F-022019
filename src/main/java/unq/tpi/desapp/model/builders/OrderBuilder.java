@@ -52,6 +52,6 @@ public class OrderBuilder {
 
 
     public Order build() {
-        return new Order(provider, client, deliveryType, deliveryDate, deliveryHour);
+        return new Order(provider, client, deliveryType, deliveryDate, deliveryHour, amount);
     }
 }

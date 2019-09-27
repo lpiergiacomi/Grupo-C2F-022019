@@ -6,6 +6,9 @@ import unq.tpi.desapp.exceptions.InvalidMinQuantityPriceException;
 import unq.tpi.desapp.model.builders.MenuBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import static org.junit.Assert.assertEquals;
 
 public class MenuTest {
@@ -30,6 +33,34 @@ public class MenuTest {
     public void testDeliveryPrice() {
         Menu menu = new MenuBuilder().withDeliveryPrice(50).withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getDeliveryPrice(), 50);
+    }
+
+    @Test
+    public void testValidityDateBegin() {
+        LocalDateTime date = LocalDateTime.of(2019, 07, 22, 9, 30);
+        Menu menu = new MenuBuilder().withValidityDateBegin(date).withPrice(200).withQuantityPrice(150).build();
+        assertEquals(menu.getValidityDateBegin(), date);
+    }
+
+    @Test
+    public void testValidityDateEnd() {
+        LocalDateTime date = LocalDateTime.of(2019, 07, 22, 9, 30);
+        Menu menu = new MenuBuilder().withValidityDateEnd(date).withPrice(200).withQuantityPrice(150).build();
+        assertEquals(menu.getValidityDateEnd(), date);
+    }
+
+    @Test
+    public void testDeliveryTimeBegin() {
+        LocalTime time = LocalTime.of(9, 30);
+        Menu menu = new MenuBuilder().withDeliveryTimeBegin(time).withPrice(200).withQuantityPrice(150).build();
+        assertEquals(menu.getDeliveryTimeBegin(), time);
+    }
+
+    @Test
+    public void testDeliveryTimeEnd() {
+        LocalTime time = LocalTime.of(10, 30);
+        Menu menu = new MenuBuilder().withDeliveryTimeEnd(time).withPrice(200).withQuantityPrice(150).build();
+        assertEquals(menu.getDeliveryTimeEnd(), time);
     }
 
     @Test
@@ -84,6 +115,12 @@ public class MenuTest {
     public void testMaxSalesPerDay() {
         Menu menu = new MenuBuilder().withMaxSalesPerDay(10).withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
         assertEquals(menu.getMaxSalesPerDay(), 10);
+    }
+
+    @Test
+    public void testQualification() {
+        Menu menu = new MenuBuilder().withQualification(10).withPrice(200).withQuantityPrice(150).build();
+        assertEquals(menu.getQualification(), 10);
     }
 
     @Test

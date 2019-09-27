@@ -6,6 +6,9 @@ import unq.tpi.desapp.model.builders.ClientBuilder;
 import unq.tpi.desapp.model.builders.OrderBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import static org.junit.Assert.assertEquals;
 
 public class OrderTest {
@@ -28,10 +31,38 @@ public class OrderTest {
         assertEquals(order.getClient(), client);
     }
 
+    @Test
+    public void testDeliveryDeliveryType() {
+        Order order = new OrderBuilder().withDeliveryType("tipoDelivery").build();
+        assertEquals(order.getDeliveryType(), "tipoDelivery");
+    }
+
+
+    @Test
+    public void testDeliveryDate() {
+        LocalDateTime date = LocalDateTime.of(2019, 07, 22, 9, 30);
+        Order order = new OrderBuilder().withDeliveryDate(date).build();
+        assertEquals(order.getDeliveryDate(), date);
+    }
+
+    @Test
+    public void testDeliveryHour() {
+        LocalTime time = LocalTime.of(9, 30);
+        Order order = new OrderBuilder().withDeliveryHour(time).build();
+        assertEquals(order.getDeliveryHour(), time);
+    }
+
+    @Test
+    public void testAmount() {
+        Order order = new OrderBuilder().withAmount(200).build();
+        assertEquals(order.getAmount(), 200);
+    }
+
 
     /*
         End Test builder
      */
+
 
 
 }

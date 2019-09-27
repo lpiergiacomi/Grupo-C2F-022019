@@ -5,6 +5,8 @@ import unq.tpi.desapp.exceptions.MaxMenusException;
 import unq.tpi.desapp.model.builders.MenuBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +66,34 @@ public class ProviderTest {
     public void testPhone() {
         Provider viri = new ProviderBuilder().withPhone("123456789").build();
         assertEquals(viri.getPhone(), "123456789");
+    }
+
+    @Test
+    public void testAttentionTimeBegin() {
+        LocalTime time = LocalTime.of(9, 30);
+        Provider viri = new ProviderBuilder().withAttentionTimeBegin(time).build();
+        assertEquals(viri.getAttentionTimeBegin(), time);
+    }
+
+    @Test
+    public void testAttentionTimeEnd() {
+        LocalTime time = LocalTime.of(9, 30);
+        Provider viri = new ProviderBuilder().withAttentionTimeEnd(time).build();
+        assertEquals(viri.getAttentionTimeEnd(), time);
+    }
+
+    @Test
+    public void testAttentionDayBegin() {
+        DayOfWeek day = DayOfWeek.SATURDAY;
+        Provider viri = new ProviderBuilder().withAttentionDayBegin(day).build();
+        assertEquals(viri.getAttentionDayBegin(), day);
+    }
+
+    @Test
+    public void testAttentionDayEnd() {
+        DayOfWeek day = DayOfWeek.SATURDAY;
+        Provider viri = new ProviderBuilder().withAttentionDayEnd(day).build();
+        assertEquals(viri.getAttentionDayEnd(), day);
     }
 
 

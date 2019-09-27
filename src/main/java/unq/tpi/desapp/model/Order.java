@@ -23,14 +23,14 @@ public class Order {
     private int amount;
 
 
-    public Order(Provider provider, Client client, String deliveryType, LocalDateTime deliveryDate, LocalTime deliveryHour) {
+    public Order(Provider provider, Client client, String deliveryType, LocalDateTime deliveryDate, LocalTime deliveryHour, int amount) {
         this.provider = provider;
         this.client = client;
         this.menuOrders = new ArrayList<>();
         this.deliveryType = deliveryType;
         this.deliveryDate = deliveryDate;
         this.deliveryHour = deliveryHour;
-        this.amount = 0;
+        this.amount = amount;
     }
 
     public Order(Provider provider, Client client, LocalDateTime deliveryDate) {
