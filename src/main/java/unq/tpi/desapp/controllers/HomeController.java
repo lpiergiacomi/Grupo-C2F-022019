@@ -12,16 +12,12 @@ public class HomeController {
 
     private final ProviderRepository providerRepository;
 
-    HomeController(ProviderRepository providerRepository){
+    HomeController(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
     }
 
-    @GetMapping(value = "/")
-    public String hello() {
-        return "Hello World";
-    }
 
-    @GetMapping("/providers")
+    @GetMapping(value = "/")
     public Iterable<Provider> index() {
         return providerRepository.findAll();
     }

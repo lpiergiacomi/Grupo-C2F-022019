@@ -2,7 +2,8 @@ package unq.tpi.desapp.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import unq.tpi.desapp.controllers.EmailSender;
+import EmailSender;
+import unq.tpi.desapp.model.email.Email;
 import unq.tpi.desapp.model.menu.MenuOrder;
 
 

@@ -1,6 +1,4 @@
-package unq.tpi.desapp.controllers;
-
-import unq.tpi.desapp.model.Email;
+package unq.tpi.desapp.model.email;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;

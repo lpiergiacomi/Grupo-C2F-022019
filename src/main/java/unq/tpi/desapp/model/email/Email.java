@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp.model.email;
 
 import lombok.Getter;
 import lombok.Setter;
