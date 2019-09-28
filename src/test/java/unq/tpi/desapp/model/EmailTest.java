@@ -1,9 +1,9 @@
 package unq.tpi.desapp.model;
 
 import org.junit.Test;
-import EmailSender;
 import unq.tpi.desapp.exceptions.InvalidEmailException;
 import unq.tpi.desapp.model.email.Email;
+import unq.tpi.desapp.model.email.EmailSender;
 
 import static org.mockito.Mockito.mock;
 
