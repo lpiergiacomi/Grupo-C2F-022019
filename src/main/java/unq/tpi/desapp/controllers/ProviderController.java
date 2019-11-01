@@ -1,6 +1,7 @@
 package unq.tpi.desapp.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import unq.tpi.desapp.exceptions.ProviderNotFoundException;
 import unq.tpi.desapp.model.Provider;
@@ -12,7 +13,8 @@ import java.util.Map;
 
 
 @CrossOrigin(origins = {"*"})
-@RestController
+@Controller
+@ResponseBody
 public class ProviderController {
 
     private final ProviderRepository providerRepository;
@@ -21,7 +23,7 @@ public class ProviderController {
         this.providerRepository = providerRepository;
     }
 
-    @GetMapping("/providers")
+    @RequestMapping("/providers")
     public Iterable<Provider> getAllProviders() {
         return providerRepository.findAll();
     }
