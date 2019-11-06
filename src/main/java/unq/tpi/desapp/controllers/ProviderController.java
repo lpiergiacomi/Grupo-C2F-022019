@@ -1,5 +1,6 @@
 package unq.tpi.desapp.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,9 @@ import java.util.Map;
 @ResponseBody
 public class ProviderController {
 
-    private final ProviderRepository providerRepository;
+    @Autowired
+    private ProviderRepository providerRepository;
+
 
     ProviderController(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
@@ -32,7 +35,7 @@ public class ProviderController {
     public ResponseEntity<Provider> getProviderById(@PathVariable(value = "id") Long id)
             throws ProviderNotFoundException {
         Provider provider = providerRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id : " + id));
+                .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
         return ResponseEntity.ok().body(provider);
     }
 
@@ -45,8 +48,7 @@ public class ProviderController {
     public ResponseEntity<Provider> updateProvider(@PathVariable(value = "id") Long id,
                                                    @Valid @RequestBody Provider providerDetails) throws ProviderNotFoundException {
         Provider provider = providerRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id : " + id));
-
+                .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
         provider.setName(providerDetails.getName());
         provider.setLocality(providerDetails.getLocality());
         provider.setAddress(providerDetails.getAddress());
@@ -59,10 +61,20 @@ public class ProviderController {
             throws ProviderNotFoundException {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id : " + id));
-
         providerRepository.delete(provider);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
+    }
+
+    @PutMapping("/providers/{id}/credit")
+    public ResponseEntity<Provider> updateCredit(@PathVariable(value = "id") Long id,
+                                                 @Valid @RequestBody Provider providerCredit) throws ProviderNotFoundException {
+        Provider provider = providerRepository.findById(id)
+                .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
+
+        provider.setCredit(providerCredit.getCredit());
+        final Provider updatedCredit = providerRepository.save(provider);
+        return ResponseEntity.ok(updatedCredit);
     }
 }
