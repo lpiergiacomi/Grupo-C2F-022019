@@ -21,6 +21,7 @@ public class ProviderController {
     @Autowired
     private ProviderRepository providerRepository;
 
+
     ProviderController(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
     }
@@ -48,7 +49,6 @@ public class ProviderController {
                                                    @Valid @RequestBody Provider providerDetails) throws ProviderNotFoundException {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
-
         provider.setName(providerDetails.getName());
         provider.setLocality(providerDetails.getLocality());
         provider.setAddress(providerDetails.getAddress());
@@ -61,7 +61,6 @@ public class ProviderController {
             throws ProviderNotFoundException {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ProviderNotFoundException("El proveedor no pudo ser encontrado para el id : " + id));
-
         providerRepository.delete(provider);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
