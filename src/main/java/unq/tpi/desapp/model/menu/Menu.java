@@ -6,10 +6,7 @@ import unq.tpi.desapp.exceptions.InvalidMinQuantityPrice2Exception;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPriceException;
 import unq.tpi.desapp.model.Provider;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -20,6 +17,10 @@ import java.util.List;
 public class Menu {
 
     @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private String name;
     private String description;
     @ElementCollection
@@ -38,6 +39,8 @@ public class Menu {
     private int qualification;
     @OneToOne
     private Provider provider;
+
+
 
     public Menu(String name, String description, List<MenuCategory> categories, int deliveryPrice, LocalDateTime validityDateBegin, LocalDateTime validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
         this.name = name;
@@ -58,6 +61,9 @@ public class Menu {
         setMinQuantityPrice(minQuantityPrice);
         setMinQuantityPrice2(minQuantityPrice2);
 
+    }
+
+    public Menu() {
     }
 
     public void setMinQuantityPrice(int minPrice) {
