@@ -32,6 +32,7 @@ public class ProviderController {
 
     @GetMapping("/providers/{id}")
     public ResponseEntity<Provider> getProviderById(@PathVariable(value = "id") Long id)
+
             throws ElementNotFoundException {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
@@ -48,7 +49,6 @@ public class ProviderController {
                                                    @Valid @RequestBody Provider providerDetails) throws ElementNotFoundException {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
-
         provider.setName(providerDetails.getName());
         provider.setLocality(providerDetails.getLocality());
         provider.setAddress(providerDetails.getAddress());
@@ -73,7 +73,7 @@ public class ProviderController {
                                                  @Valid @RequestBody Provider providerCredit) throws ElementNotFoundException {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
-
+      
         provider.setCredit(providerCredit.getCredit());
         final Provider updatedCredit = providerRepository.save(provider);
         return ResponseEntity.ok(updatedCredit);
