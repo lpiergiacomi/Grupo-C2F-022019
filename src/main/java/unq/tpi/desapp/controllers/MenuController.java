@@ -50,8 +50,9 @@ public class MenuController {
                 .orElseThrow(() -> new ElementNotFoundException("El menu no pudo ser encontrado para el id: " + id));
 
         menu.setName(menuDetails.getName());
-        menu.setDescription(menuDetails.getDescription());
-        menu.setDeliveryPrice(menuDetails.getDeliveryPrice());
+        menu.setPrice(menuDetails.getPrice());
+        menu.setMinQuantity(menuDetails.getMinQuantity());
+        menu.setMinQuantity2(menuDetails.getMinQuantity2());
         final Menu updatedMenu = menuRepository.save(menu);
         return ResponseEntity.ok(updatedMenu);
     }
