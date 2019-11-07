@@ -45,7 +45,7 @@ public class MenuController {
 
     @PutMapping("/menus/{id}")
     public ResponseEntity<Menu> updateMenu(@PathVariable(value = "id") Long id,
-                                                   @Valid @RequestBody Menu menuDetails) throws ElementNotFoundException {
+                                           @Valid @RequestBody Menu menuDetails) throws ElementNotFoundException {
         Menu menu = menuRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException("El menu no pudo ser encontrado para el id: " + id));
 
