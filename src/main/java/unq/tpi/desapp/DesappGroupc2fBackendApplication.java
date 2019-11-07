@@ -22,8 +22,8 @@ public class DesappGroupc2fBackendApplication {
         return args -> {
             providerRepository.save(new ProviderBuilder().withName("Proveedor 1").build());
             providerRepository.save(new ProviderBuilder().withName("Proveedor 2").build());
-            menuRepository.save(new MenuBuilder().withName("Menu 1").build());
-            menuRepository.save(new MenuBuilder().withName("Menu 2").build());
+            menuRepository.save(new MenuBuilder().withName("Menu 1").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build());
+            menuRepository.save(new MenuBuilder().withName("Menu 2").withPrice(150).withQuantityPrice(100).withQuantityPrice2(75).build());
         };
     }
 }
