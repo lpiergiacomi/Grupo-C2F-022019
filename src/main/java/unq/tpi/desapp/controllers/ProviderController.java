@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import unq.tpi.desapp.exceptions.ElementNotFoundException;
 import unq.tpi.desapp.model.Provider;
+import unq.tpi.desapp.model.menu.Menu;
 import unq.tpi.desapp.persistence.ProviderRepository;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -77,5 +79,14 @@ public class ProviderController {
         provider.setCredit(providerCredit.getCredit());
         final Provider updatedCredit = providerRepository.save(provider);
         return ResponseEntity.ok(updatedCredit);
+    }
+
+    @GetMapping("/providers/{id}/menus")
+    public ResponseEntity<List<Menu>> getProviderMenus(@PathVariable(value = "id") Long id)
+
+            throws ElementNotFoundException {
+        List<Menu> menus = providerRepository.findById(id)
+                .orElseThrow(() -> new ElementNotFoundException("El proveedor no pudo ser encontrado para el id: " + id)).getMenus();
+        return ResponseEntity.ok().body(menus);
     }
 }
