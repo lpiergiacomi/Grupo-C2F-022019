@@ -9,9 +9,27 @@ NEW FEATURES:
 * Implementación de pagina de google con dos marcadores.
 * Implementación de envio de mail.
 
-
 NOTES:
 * Falta funcionalidad al efectuar compras que superan las cantidades minimas para mejorar el precio.
 
 KNOWN ISSUES:
 * La implementación de la pagina de google esta en un repositorio aparte(https://github.com/Esthebam/Grupo-C2F-022019-Front).
+
+---------------------------------------------------------------------
+TAG ENTREGA 1
+---------------------------------------------------------------------
+NEW FEATURES:
+* ABM Proveedor.
+* ABM Menú.
+* Datos "fake para probar la aplicación.
+* I18n- US_ES.
+* Carga/retiro de crédito.
+* Búsqueda de Menú.
+
+NOTES:
+*
+
+KNOWN ISSUES:
+*La funcionalidad de comprar un menú no esta completamente implementada, actualmente solo muestra
+los menús correspondientes de un proveedor para comprar.
+
