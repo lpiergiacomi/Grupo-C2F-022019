@@ -27,14 +27,14 @@ public class DesappGroupc2fBackendApplication {
         return args -> {
 
             List<Menu> menus1 = new ArrayList<>();
-            Menu menu1 = new MenuBuilder().withName("Menu 1").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
-            Menu menu2 = new MenuBuilder().withName("Menu 2").withPrice(150).withQuantityPrice(100).withQuantityPrice2(75).build();
+            Menu menu1 = new MenuBuilder().withName("Menu 1").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).withDeliveryTimeAverage(1800).withPreparationTime(2700).build();
+            Menu menu2 = new MenuBuilder().withName("Menu 2").withPrice(150).withQuantityPrice(100).withQuantityPrice2(75).withDeliveryTimeAverage(2400).withPreparationTime(1200).build();
             menus1.add(menu1);
             menus1.add(menu2);
 
             List<Menu> menus2 = new ArrayList<>();
-            Menu menu3 = new MenuBuilder().withName("Menu 3").withPrice(500).withQuantityPrice(375).withQuantityPrice2(210).build();
-            Menu menu4 = new MenuBuilder().withName("Menu 4").withPrice(1000).withQuantityPrice(650).withQuantityPrice2(320).build();
+            Menu menu3 = new MenuBuilder().withName("Menu 3").withPrice(500).withQuantityPrice(375).withQuantityPrice2(210).withDeliveryTimeAverage(900).withPreparationTime(3600).build();
+            Menu menu4 = new MenuBuilder().withName("Menu 4").withPrice(1000).withQuantityPrice(650).withQuantityPrice2(320).withDeliveryTimeAverage(3600).withPreparationTime(600).build();
             menus2.add(menu3);
             menus2.add(menu4);
 

@@ -18,6 +18,8 @@ public class MenuBuilder {
     private LocalDateTime validityDateEnd;
     private LocalTime deliveryTimeBegin;
     private LocalTime deliveryTimeEnd;
+    private int deliveryTimeAverage;
+    private int preparationTime;
     private int price;
     private int minQuantity;
     private int minQuantityPrice;
@@ -68,6 +70,16 @@ public class MenuBuilder {
         return this;
     }
 
+    public MenuBuilder withDeliveryTimeAverage(int deliveryTimeAverage) {
+        this.deliveryTimeAverage = deliveryTimeAverage;
+        return this;
+    }
+
+    public MenuBuilder withPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
+        return this;
+    }
+
     public MenuBuilder withPrice(int price) {
         this.price = price;
         return this;
@@ -110,6 +122,6 @@ public class MenuBuilder {
 
 
     public Menu build() {
-        return new Menu(name, description, categories, deliveryPrice, validityDateBegin, validityDateEnd, deliveryTimeBegin, deliveryTimeEnd, price, minQuantity, minQuantityPrice, minQuantity2, minQuantityPrice2, maxSalesPerDay, qualification, provider);
+        return new Menu(name, description, categories, deliveryPrice, validityDateBegin, validityDateEnd, deliveryTimeBegin, deliveryTimeEnd, deliveryTimeAverage, preparationTime, price, minQuantity, minQuantityPrice, minQuantity2, minQuantityPrice2, maxSalesPerDay, qualification, provider);
     }
 }

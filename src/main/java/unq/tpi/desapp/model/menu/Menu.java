@@ -30,6 +30,8 @@ public class Menu {
     private LocalDateTime validityDateEnd;
     private LocalTime deliveryTimeBegin;
     private LocalTime deliveryTimeEnd;
+    private int deliveryTimeAverage;
+    private int preparationTime;
     private int price;
     private int minQuantity;
     private int minQuantityPrice;
@@ -42,7 +44,7 @@ public class Menu {
 
 
 
-    public Menu(String name, String description, List<MenuCategory> categories, int deliveryPrice, LocalDateTime validityDateBegin, LocalDateTime validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
+    public Menu(String name, String description, List<MenuCategory> categories, int deliveryPrice, LocalDateTime validityDateBegin, LocalDateTime validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int deliveryTimeAverage, int preparationTime, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
         this.name = name;
         this.description = description;
         this.categories = categories;
@@ -51,6 +53,8 @@ public class Menu {
         this.validityDateEnd = validityDateEnd;
         this.deliveryTimeBegin = deliveryTimeBegin;
         this.deliveryTimeEnd = deliveryTimeEnd;
+        this.deliveryTimeAverage = deliveryTimeAverage;
+        this.preparationTime = preparationTime;
         this.price = price;
         this.minQuantity = minQuantity;
         this.minQuantity2 = minQuantity2;
