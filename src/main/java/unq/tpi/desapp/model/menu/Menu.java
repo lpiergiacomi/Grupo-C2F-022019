@@ -2,13 +2,16 @@ package unq.tpi.desapp.model.menu;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPrice2Exception;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPriceException;
 import unq.tpi.desapp.model.Provider;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,31 +23,77 @@ public class Menu {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @NotEmpty(message = "no puede estar vacío")
+    @Size(min = 4, max = 30, message = "tiene que tener entre 4 y 30 caracteres")
+    @Column(nullable = false)
     private String name;
+
+    @NotEmpty(message = "no puede estar vacío")
+    @Size(min = 20, max = 40, message = "tiene que tener entre 20 y 40 caracteres")
+    @Column(nullable = false)
     private String description;
+
+    @NotEmpty
     @ElementCollection
     private List<MenuCategory> categories;
+
+    //@Min(value = 10, message = "no puede ser menor a 10")
+    //@Max(value = 40, message = "no puede ser mayor a 40")
+    //TODO: Es un campo opcional, si no escriben nada llega null, y no pasa las validaciones de arriba
     private int deliveryPrice;
-    private LocalDateTime validityDateBegin;
-    private LocalDateTime validityDateEnd;
+
+    @NotNull(message = "no puede estar vacío")
+    @Temporal(TemporalType.DATE)
+    private Date validityDateBegin;
+
+    @NotNull(message = "no puede estar vacío")
+    @Temporal(TemporalType.DATE)
+    private Date validityDateEnd;
+
+    //@Temporal(TemporalType.DATE)
     private LocalTime deliveryTimeBegin;
+
+    //@Temporal(TemporalType.DATE)
     private LocalTime deliveryTimeEnd;
+
+    @NotNull(message = "no puede estar vacío")
+    @Min(value = 0, message = "no puede ser menor a 0")
+    //TODO: DEBERIA SER UN TIMEPICKER?
     private int deliveryTimeAverage;
-    private int preparationTime;
+
+    @NotNull(message = "no puede estar vacío")
+    @Min(value = 0, message = "no puede ser menor a 0")
     private int price;
+
+    @NotNull(message = "no puede estar vacío")
+    @Min(value = 10, message = "no puede ser menor a 10")
+    @Max(value = 70, message = "no puede ser mayor a 70")
     private int minQuantity;
+
+    @NotNull(message = "no puede estar vacío")
+    @Min(value = 0, message = "no puede ser menor a 0")
+    @Max(value = 1000, message = "no puede ser mayor a 1000")
+    // DEBE SER MENOR A PRECIO
     private int minQuantityPrice;
+
     private int minQuantity2;
+
+    // DEBE SER MENOR A PRECIO MINIMO 1
     private int minQuantityPrice2;
+
+    @NotNull(message = "no puede estar vacío")
+    @Min(value = 0, message = "no puede ser menor a 0")
     private int maxSalesPerDay;
+
+    private int preparationTime;
+
     private int qualification;
+
     @OneToOne
     private Provider provider;
 
 
-
-    public Menu(String name, String description, List<MenuCategory> categories, int deliveryPrice, LocalDateTime validityDateBegin, LocalDateTime validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int deliveryTimeAverage, int preparationTime, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
+    public Menu(String name, String description, List<MenuCategory> categories, int deliveryPrice, Date validityDateBegin, Date validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int deliveryTimeAverage, int preparationTime, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
         this.name = name;
         this.description = description;
         this.categories = categories;

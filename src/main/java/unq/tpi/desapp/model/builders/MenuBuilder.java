@@ -6,6 +6,7 @@ import unq.tpi.desapp.model.Provider;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public class MenuBuilder {
@@ -14,8 +15,8 @@ public class MenuBuilder {
     private String description;
     private List<MenuCategory> categories;
     private int deliveryPrice;
-    private LocalDateTime validityDateBegin;
-    private LocalDateTime validityDateEnd;
+    private Date validityDateBegin;
+    private Date validityDateEnd;
     private LocalTime deliveryTimeBegin;
     private LocalTime deliveryTimeEnd;
     private int deliveryTimeAverage;
@@ -50,12 +51,12 @@ public class MenuBuilder {
         return this;
     }
 
-    public MenuBuilder withValidityDateBegin(LocalDateTime validityDateBegin) {
+    public MenuBuilder withValidityDateBegin(Date validityDateBegin) {
         this.validityDateBegin = validityDateBegin;
         return this;
     }
 
-    public MenuBuilder withValidityDateEnd(LocalDateTime validityDateEnd) {
+    public MenuBuilder withValidityDateEnd(Date validityDateEnd) {
         this.validityDateEnd = validityDateEnd;
         return this;
     }

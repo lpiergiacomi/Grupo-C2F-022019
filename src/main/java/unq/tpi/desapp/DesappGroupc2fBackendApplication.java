@@ -8,10 +8,12 @@ import unq.tpi.desapp.model.Provider;
 import unq.tpi.desapp.model.builders.MenuBuilder;
 import unq.tpi.desapp.model.builders.ProviderBuilder;
 import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.model.menu.MenuCategory;
 import unq.tpi.desapp.persistence.MenuRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -27,14 +29,16 @@ public class DesappGroupc2fBackendApplication {
         return args -> {
 
             List<Menu> menus1 = new ArrayList<>();
-            Menu menu1 = new MenuBuilder().withName("Menu 1").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).withDeliveryTimeAverage(1800).withPreparationTime(2700).withDeliveryPrice(60).build();
-            Menu menu2 = new MenuBuilder().withName("Menu 2").withPrice(150).withQuantityPrice(100).withQuantityPrice2(75).withDeliveryTimeAverage(2400).withPreparationTime(1200).withDeliveryPrice(60).build();
+            List<MenuCategory> categories = new ArrayList<>();
+            categories.add(MenuCategory.Pizza);
+            Menu menu1 = new MenuBuilder().withName("Menu 1").withPrice(200).withDescription("Descripción del Menú 1").withQuantityPrice(150).withQuantityPrice2(100).withDeliveryTimeAverage(1800).withPreparationTime(2700).withDeliveryPrice(30).withValidityDateBegin(new Date()).withValidityDateEnd(new Date()).withMinQuantity(20).withMinQuantity2(50).withCategories(categories).build();
+            Menu menu2 = new MenuBuilder().withName("Menu 2").withPrice(150).withDescription("Descripción del Menú 2").withQuantityPrice(100).withQuantityPrice2(75).withDeliveryTimeAverage(2400).withPreparationTime(1200).withDeliveryPrice(30).withValidityDateBegin(new Date()).withValidityDateEnd(new Date()).withMinQuantity(20).withMinQuantity2(50).withCategories(categories).build();
             menus1.add(menu1);
             menus1.add(menu2);
 
             List<Menu> menus2 = new ArrayList<>();
-            Menu menu3 = new MenuBuilder().withName("Menu 3").withPrice(500).withQuantityPrice(375).withQuantityPrice2(210).withDeliveryTimeAverage(900).withPreparationTime(3600).withDeliveryPrice(60).build();
-            Menu menu4 = new MenuBuilder().withName("Menu 4").withPrice(1000).withQuantityPrice(650).withQuantityPrice2(320).withDeliveryTimeAverage(3600).withPreparationTime(600).withDeliveryPrice(60).build();
+            Menu menu3 = new MenuBuilder().withName("Menu 3").withPrice(500).withDescription("Descripción del Menú 3").withQuantityPrice(375).withQuantityPrice2(210).withDeliveryTimeAverage(900).withPreparationTime(3600).withDeliveryPrice(30).withValidityDateBegin(new Date()).withValidityDateEnd(new Date()).withMinQuantity(20).withMinQuantity2(50).withCategories(categories).build();
+            Menu menu4 = new MenuBuilder().withName("Menu 4").withPrice(1000).withDescription("Descripción del Menú 4").withQuantityPrice(650).withQuantityPrice2(320).withDeliveryTimeAverage(3600).withPreparationTime(600).withDeliveryPrice(30).withValidityDateBegin(new Date()).withValidityDateEnd(new Date()).withMinQuantity(20).withMinQuantity2(50).withCategories(categories).build();
             menus2.add(menu3);
             menus2.add(menu4);
 

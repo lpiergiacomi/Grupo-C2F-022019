@@ -10,6 +10,7 @@ import unq.tpi.desapp.model.builders.ProviderBuilder;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -49,14 +50,14 @@ public class MenuTest {
 
     @Test
     public void validityDateBeginTest() {
-        LocalDateTime date = LocalDateTime.of(2019, 07, 22, 9, 30);
+        Date date = new Date(2019, 07, 22, 9, 30);
         Menu menu = new MenuBuilder().withValidityDateBegin(date).withPrice(200).withQuantityPrice(150).build();
         assertEquals(menu.getValidityDateBegin(), date);
     }
 
     @Test
     public void validityDateEndTest() {
-        LocalDateTime date = LocalDateTime.of(2019, 07, 22, 9, 30);
+        Date date = new Date(2019, 07, 22, 9, 30);
         Menu menu = new MenuBuilder().withValidityDateEnd(date).withPrice(200).withQuantityPrice(150).build();
         assertEquals(menu.getValidityDateEnd(), date);
     }
