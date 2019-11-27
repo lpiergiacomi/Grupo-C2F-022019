@@ -27,7 +27,7 @@ public class DesappGroupc2fBackendApplication {
     @Bean
     ApplicationRunner applicationRunner(ProviderRepository providerRepository, MenuRepository menuRepository) {
         return args -> {
-
+/*
             List<Menu> menus1 = new ArrayList<>();
             List<MenuCategory> categories = new ArrayList<>();
             categories.add(MenuCategory.Pizza);
@@ -45,6 +45,11 @@ public class DesappGroupc2fBackendApplication {
             Provider provider1 = new ProviderBuilder().withName("Proveedor 1").withMenus(menus1).build();
             Provider provider2 = new ProviderBuilder().withName("Proveedor 2").withMenus(menus2).build();
 
+            menu1.setProvider(provider1);
+            menu2.setProvider(provider1);
+            menu3.setProvider(provider2);
+            menu4.setProvider(provider2);
+
             menuRepository.save(menu1);
             menuRepository.save(menu2);
             menuRepository.save(menu3);
@@ -52,6 +57,7 @@ public class DesappGroupc2fBackendApplication {
 
             providerRepository.save(provider1);
             providerRepository.save(provider2);
+        */
         };
     }
 }

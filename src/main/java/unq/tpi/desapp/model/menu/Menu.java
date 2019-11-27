@@ -1,5 +1,7 @@
 package unq.tpi.desapp.model.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -17,10 +19,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "menus")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Menu {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "no puede estar vacío")
@@ -37,8 +41,7 @@ public class Menu {
     @ElementCollection
     private List<MenuCategory> categories;
 
-    //@Min(value = 10, message = "no puede ser menor a 10")
-    //@Max(value = 40, message = "no puede ser mayor a 40")
+
     //TODO: Es un campo opcional, si no escriben nada llega null, y no pasa las validaciones de arriba
     private int deliveryPrice;
 
@@ -89,7 +92,8 @@ public class Menu {
 
     private int qualification;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "provider")
     private Provider provider;
 
 
@@ -134,6 +138,14 @@ public class Menu {
             throw new InvalidMinQuantityPrice2Exception("El precio minimo 2 debe ser menor al precio minimo");
         }
 
+    }
+
+    public void setDeliveryPrice(int deliveryPrice){
+        if (deliveryPrice != 0){
+            if (deliveryPrice < 10 || deliveryPrice > 40){
+                throw new InvalidMinQuantityPrice2Exception("El precio de delivery debe ser entre 10 y 40");
+            }
+        }
     }
 
 }

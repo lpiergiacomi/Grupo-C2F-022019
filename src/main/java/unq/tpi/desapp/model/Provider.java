@@ -1,5 +1,7 @@
 package unq.tpi.desapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MaxMenusException;
@@ -15,10 +17,13 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "providers")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Provider {
 
     @Id
     @GeneratedValue
+    @Column(name = "provider_id")
     private Long id;
 
     @Column
@@ -36,8 +41,11 @@ public class Provider {
     private DayOfWeek attentionDayEnd;
     @ElementCollection
     private List<String> deliveryLocalities;
-    @ElementCollection
+
+    //@ElementCollection
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
     private List<Menu> menus;
+
     private int credit;
 
     public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, DayOfWeek attentionDayBegin, DayOfWeek attentionDayEnd, List<String> deliveryLocalities, List<Menu> menus, int credit) {
