@@ -1,6 +1,6 @@
 package unq.tpi.desapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +20,7 @@ import java.time.LocalTime;
 public class Provider {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "provider_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -41,7 +40,8 @@ public class Provider {
     private List<String> deliveryLocalities;
 
     //@ElementCollection
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Menu> menus;
 
     private int credit;

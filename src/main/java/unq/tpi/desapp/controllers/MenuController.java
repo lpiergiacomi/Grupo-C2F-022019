@@ -85,8 +85,8 @@ public class MenuController {
         }
 
         try {
-            //Provider provider = providerRepository.findById(menu.getProvider().getId()).get();
-            //menu.setProvider(provider);
+            Provider provider = providerRepository.findById(menu.getProvider().getId()).get();
+            menu.setProvider(provider);
             menuNuevo = this.menuRepository.save(menu);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
