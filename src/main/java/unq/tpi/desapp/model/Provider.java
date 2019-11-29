@@ -17,12 +17,10 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "providers")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Provider {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "provider_id")
     private Long id;
 
@@ -47,6 +45,7 @@ public class Provider {
     private List<Menu> menus;
 
     private int credit;
+    private String type;
 
     public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, DayOfWeek attentionDayBegin, DayOfWeek attentionDayEnd, List<String> deliveryLocalities, List<Menu> menus, int credit) {
         this.name = name;

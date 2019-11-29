@@ -19,12 +19,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "menus")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Menu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "no puede estar vacío")
@@ -92,8 +90,8 @@ public class Menu {
 
     private int qualification;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "provider")
+    @ManyToOne
+    @JoinColumn(referencedColumnName="provider_id")
     private Provider provider;
 
 
