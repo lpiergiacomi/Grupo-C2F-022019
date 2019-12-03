@@ -1,12 +1,16 @@
 package unq.tpi.desapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import unq.tpi.desapp.exceptions.ElementNotFoundException;
 import unq.tpi.desapp.model.Provider;
 import unq.tpi.desapp.model.menu.Menu;
@@ -43,6 +47,14 @@ public class ProviderController {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException("El proveedor no pudo ser encontrado para el id: " + id));
         return ResponseEntity.ok().body(provider);
+    }
+
+    @GetMapping("/providers/find/{mail}")
+    public ResponseEntity<Integer> getProviderByMail(@PathVariable(value = "mail") String mail)
+            throws ElementNotFoundException {
+        Integer id = providerRepository.findByMail(mail)
+                .orElseThrow(() -> new ElementNotFoundException("El proveedor no pudo ser encontrado para el mail: " + mail));
+        return ResponseEntity.ok().body(id);
     }
 
     @PostMapping("/providers")
