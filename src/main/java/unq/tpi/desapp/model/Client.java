@@ -1,5 +1,6 @@
 package unq.tpi.desapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.InsufficientCreditException;
@@ -9,6 +10,7 @@ import unq.tpi.desapp.model.holiday.HolidayChecker;
 import unq.tpi.desapp.model.menu.Menu;
 import unq.tpi.desapp.model.menu.MenuOrder;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -19,7 +21,12 @@ import java.util.stream.IntStream;
 
 @Getter
 @Setter
+@Entity
 public class Client {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String firstName;
     private String lastName;
@@ -28,8 +35,13 @@ public class Client {
     private String locality;
     private String address;
     private int credit;
-    private List<Menu> menus;
+    //private List<Menu> menus;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Order> orders;
+    private String type;
+
+    public Client() {}
 
     public Client(String firstName, String lastName, String mail, String phone, String locality, String address, int credit) {
         this.firstName = firstName;
@@ -39,7 +51,7 @@ public class Client {
         this.locality = locality;
         this.address = address;
         this.credit = credit;
-        this.menus = new ArrayList<>();
+        //this.menus = new ArrayList<>();
         this.orders = new ArrayList<>();
     }
 

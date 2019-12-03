@@ -3,13 +3,23 @@ package unq.tpi.desapp.model.menu;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
+@Entity
 public class MenuOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
     private Menu menu;
     private int quantity;
     private int price;
+
+    public MenuOrder() {}
 
     public MenuOrder(Menu menu, int quantity) {
         this.menu = menu;
