@@ -3,6 +3,7 @@ package unq.tpi.desapp.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
 import unq.tpi.desapp.exceptions.MenuSalesExceededException;
@@ -11,6 +12,7 @@ import unq.tpi.desapp.model.menu.Menu;
 import unq.tpi.desapp.model.menu.MenuOrder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Client {
 
     private String firstName;
     private String lastName;
+    @Column(unique=true, nullable=false)
     private String mail;
     private String phone;
     private String locality;
