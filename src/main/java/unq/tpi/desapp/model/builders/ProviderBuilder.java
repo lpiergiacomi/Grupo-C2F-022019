@@ -19,8 +19,7 @@ public class ProviderBuilder {
     private String phone;
     private LocalTime attentionTimeBegin;
     private LocalTime attentionTimeEnd;
-    private DayOfWeek attentionDayBegin;
-    private DayOfWeek attentionDayEnd;
+    private List<String> daysAttention;
     private List<String> deliveryLocalities;
     private List<Menu> menus;
     private int credit;
@@ -76,13 +75,8 @@ public class ProviderBuilder {
         return this;
     }
 
-    public ProviderBuilder withAttentionDayBegin(DayOfWeek attentionDayBegin) {
-        this.attentionDayBegin = attentionDayBegin;
-        return this;
-    }
-
-    public ProviderBuilder withAttentionDayEnd(DayOfWeek attentionDayEnd) {
-        this.attentionDayEnd = attentionDayEnd;
+    public ProviderBuilder withDaysAttention(List<String> daysAttention) {
+        this.daysAttention = daysAttention;
         return this;
     }
 
@@ -102,6 +96,6 @@ public class ProviderBuilder {
     }
 
     public Provider build() {
-        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, attentionDayBegin, attentionDayEnd, deliveryLocalities, menus, credit);
+        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, daysAttention, deliveryLocalities, menus, credit);
     }
 }
