@@ -9,6 +9,7 @@ import unq.tpi.desapp.model.menu.Menu;
 import unq.tpi.desapp.model.menu.MenuOrder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -19,11 +20,11 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "providers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Provider {
+public class Provider implements Serializable {
 
     @Id
-    @GeneratedValue
-    @Column(name = "provider_id")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -42,8 +43,7 @@ public class Provider {
     @ElementCollection
     private List<String> deliveryLocalities;
 
-    //@ElementCollection
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Menu> menus;
 
     private int credit;
