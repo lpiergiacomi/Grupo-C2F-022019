@@ -33,6 +33,7 @@ public class Provider implements Serializable {
     private String description;
     private String site;
     private String mail;
+    private String password;
     private String phone;
     private LocalTime attentionTimeBegin;
     private LocalTime attentionTimeEnd;

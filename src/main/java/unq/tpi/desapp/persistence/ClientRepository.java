@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
-    @Query("SELECT id FROM Client WHERE mail = :email")
-    Optional<Integer> findByMail(String email);
+    @Query("SELECT c FROM Client c WHERE c.mail = :email")
+    Optional<Client> findByMail(String email);
 }

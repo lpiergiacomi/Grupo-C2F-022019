@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
@@ -43,11 +44,14 @@ public class ClientController {
     }
 
     @GetMapping("/clients/find/{mail}")
-    public ResponseEntity<Integer> getProviderByMail(@PathVariable(value = "mail") String mail)
-            throws ElementNotFoundException {
-        Integer id = clientRepository.findByMail(mail)
-                .orElseThrow(() -> new ElementNotFoundException("El cliente no pudo ser encontrado para el mail: " + mail));
-        return ResponseEntity.ok().body(id);
+    public ResponseEntity<Client> getProviderByMail(@PathVariable(value = "mail") String mail){
+        Client client = null;
+        try {
+            client = clientRepository.findByMail(mail).get();
+            return ResponseEntity.ok().body(client);
+        } catch(NoSuchElementException e) {
+        return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // @RequestBody porque el menu viene en formato JSON

@@ -159,5 +159,16 @@ public class ProviderController {
         return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 
     }
+
+    @GetMapping("/providers/find/{mail}")
+    public ResponseEntity<Provider> getProviderByMail(@PathVariable(value = "mail") String mail){
+        Provider provider = null;
+        try {
+            provider = providerRepository.findByMail(mail).get();
+            return ResponseEntity.ok().body(provider);
+        } catch(NoSuchElementException e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

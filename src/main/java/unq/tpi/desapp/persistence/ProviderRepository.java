@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ProviderRepository extends CrudRepository<Provider, Long> {
 
-    @Query("SELECT id FROM Provider WHERE mail = :email")
-    Optional<Integer> findByMail(String email);
+    @Query("SELECT p FROM Provider p WHERE p.mail = :email")
+    Optional<Provider> findByMail(String email);
 }
