@@ -87,17 +87,11 @@ public class ProviderTest {
     }
 
     @Test
-    public void attentionDayBeginTest() {
-        DayOfWeek day = DayOfWeek.SATURDAY;
-        Provider viri = new ProviderBuilder().withAttentionDayBegin(day).build();
-        assertEquals(viri.getAttentionDayBegin(), day);
-    }
-
-    @Test
-    public void attentionDayEndTest() {
-        DayOfWeek day = DayOfWeek.SATURDAY;
-        Provider viri = new ProviderBuilder().withAttentionDayEnd(day).build();
-        assertEquals(viri.getAttentionDayEnd(), day);
+    public void daysAttentionTest() {
+        List<String> days = new ArrayList<>();
+        days.add("Sábado");
+        Provider viri = new ProviderBuilder().withDaysAttention(days).build();
+        assertEquals(viri.getDaysAttention(), days);
     }
 
     @Test

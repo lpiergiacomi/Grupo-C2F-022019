@@ -1,7 +1,7 @@
 package unq.tpi.desapp.model;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MaxMenusException;
@@ -9,8 +9,8 @@ import unq.tpi.desapp.model.menu.Menu;
 import unq.tpi.desapp.model.menu.MenuOrder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 
@@ -19,7 +19,12 @@ import java.time.LocalTime;
 @Entity
 public class Provider {
 
+@Table(name = "providers")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Provider implements Serializable {
+
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -34,20 +39,19 @@ public class Provider {
     private String phone;
     private LocalTime attentionTimeBegin;
     private LocalTime attentionTimeEnd;
-    private DayOfWeek attentionDayBegin;
-    private DayOfWeek attentionDayEnd;
+    @ElementCollection
+    private List<String> daysAttention;
     @ElementCollection
     private List<String> deliveryLocalities;
 
     //@ElementCollection
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Menu> menus;
 
     private int credit;
     private String type;
 
-    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, DayOfWeek attentionDayBegin, DayOfWeek attentionDayEnd, List<String> deliveryLocalities, List<Menu> menus, int credit) {
+    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, List<String> daysAttention, List<String> deliveryLocalities, List<Menu> menus, int credit) {
         this.name = name;
         this.logo = logo;
         this.locality = locality;
@@ -58,8 +62,7 @@ public class Provider {
         this.phone = phone;
         this.attentionTimeBegin = attentionTimeBegin;
         this.attentionTimeEnd = attentionTimeEnd;
-        this.attentionDayBegin = attentionDayBegin;
-        this.attentionDayEnd = attentionDayEnd;
+        this.daysAttention = daysAttention;
         this.deliveryLocalities = deliveryLocalities;
         this.menus = menus;
         this.credit = credit;
