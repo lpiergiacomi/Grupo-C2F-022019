@@ -1,6 +1,5 @@
 package unq.tpi.desapp.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +16,6 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Entity
-public class Provider {
-
 @Table(name = "providers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Provider implements Serializable {
@@ -44,7 +41,6 @@ public class Provider implements Serializable {
     @ElementCollection
     private List<String> deliveryLocalities;
 
-    //@ElementCollection
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Menu> menus;
 
