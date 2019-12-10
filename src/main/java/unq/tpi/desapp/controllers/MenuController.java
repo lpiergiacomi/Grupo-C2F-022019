@@ -10,11 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import unq.tpi.desapp.exceptions.ElementNotFoundException;
+import unq.tpi.desapp.model.Provider;
 import unq.tpi.desapp.model.menu.Menu;
 import unq.tpi.desapp.persistence.MenuRepository;
+import unq.tpi.desapp.persistence.ProviderRepository;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,12 @@ public class MenuController {
     @Autowired
     private MenuRepository menuRepository;
 
-    MenuController(MenuRepository menuRepository) {
+    @Autowired
+    private ProviderRepository providerRepository;
+
+    MenuController(MenuRepository menuRepository, ProviderRepository providerRepository) {
         this.menuRepository = menuRepository;
+        this.providerRepository = providerRepository;
     }
 
     @InitBinder
@@ -59,6 +64,7 @@ public class MenuController {
 
     // @RequestBody porque el menu viene en formato JSON
     @PostMapping("/menus")
+    @ResponseBody
     // @Valid para que valide las condiciones configuradas en Menu (@NotEmpty, @Size, @Email)
     // Hay que inyectarle BindingResult que es lo que contiene todos los mensajes de error, para saber si ocurrió algún problema
     public ResponseEntity<?> createMenu(@Valid @RequestBody Menu menu, BindingResult result) {
@@ -78,10 +84,17 @@ public class MenuController {
         }
 
         try {
+            Provider provider = providerRepository.findById(menu.getProvider().getId()).get();
+            menu.setProvider(provider);
             menuNuevo = this.menuRepository.save(menu);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (NoSuchFieldError e){
+            response.put("mensaje", "Error al realizar el insert en la base de datos");
+            response.put("error", "No existe un proveedor con ese id");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         // En caso que se cree correctamente, devolvemos el menu y un mensaje

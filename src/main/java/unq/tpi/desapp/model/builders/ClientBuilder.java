@@ -7,6 +7,7 @@ public class ClientBuilder {
     private String firstName;
     private String lastName;
     private String mail;
+    private String password;
     private String phone;
     private String locality;
     private String address;
@@ -24,6 +25,11 @@ public class ClientBuilder {
 
     public ClientBuilder withMail(String mail) {
         this.mail = mail;
+        return this;
+    }
+
+    public ClientBuilder withPassword(String password) {
+        this.password = password;
         return this;
     }
 
@@ -48,6 +54,6 @@ public class ClientBuilder {
     }
 
     public Client build() {
-        return new Client(firstName, lastName, mail, phone, locality, address, credit);
+        return new Client(firstName, lastName, mail, password, phone, locality, address, credit);
     }
 }

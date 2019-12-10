@@ -1,7 +1,9 @@
 package unq.tpi.desapp.model.menu;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -19,8 +21,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "menus")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Menu {
 
     @Id
@@ -92,10 +92,14 @@ public class Menu {
 
     private int qualification;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "provider")
-    private Provider provider;
 
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "provider_id")
+    @JsonBackReference
+    private Provider provider = new Provider();
+
+    public Menu() {
+    }
 
     public Menu(String name, String description, List<MenuCategory> categories, int deliveryPrice, Date validityDateBegin, Date validityDateEnd, LocalTime deliveryTimeBegin, LocalTime deliveryTimeEnd, int deliveryTimeAverage, int preparationTime, int price, int minQuantity, int minQuantityPrice, int minQuantity2, int minQuantityPrice2, int maxSalesPerDay, int qualification, Provider provider) {
         this.name = name;
@@ -120,8 +124,10 @@ public class Menu {
 
     }
 
-    public Menu() {
+    public Long getIdProvider() {
+        return this.provider.getId();
     }
+
 
     public void setMinQuantityPrice(int minPrice) {
         if (minPrice < this.getPrice()) {
