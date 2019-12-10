@@ -34,6 +34,7 @@ public class Client {
     private String lastName;
     @Column(unique=true, nullable=false)
     private String mail;
+    private String password;
     private String phone;
     private String locality;
     private String address;
@@ -46,10 +47,11 @@ public class Client {
 
     public Client() {}
 
-    public Client(String firstName, String lastName, String mail, String phone, String locality, String address, int credit) {
+    public Client(String firstName, String lastName, String mail, String password, String phone, String locality, String address, int credit) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
+        this.password = password;
         this.phone = phone;
         this.locality = locality;
         this.address = address;
