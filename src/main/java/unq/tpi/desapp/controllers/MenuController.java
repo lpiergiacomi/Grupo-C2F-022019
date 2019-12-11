@@ -3,6 +3,8 @@ package unq.tpi.desapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,13 @@ public class MenuController {
     public Iterable<Menu> getAllMenus() {
         return menuRepository.findAll();
     }
+
+    @RequestMapping("/menus/page/{page}")
+    public Page<Menu> getAllMenus(@PathVariable Integer page)
+    {
+        return menuRepository.findAll(PageRequest.of(page, 2));
+    }
+
 
     @GetMapping("/menus/{id}")
     public ResponseEntity<Menu> getMenuById(@PathVariable(value = "id") Long id)
