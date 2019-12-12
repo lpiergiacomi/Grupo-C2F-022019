@@ -44,21 +44,23 @@ public class ClientController {
     }
 
     @GetMapping("/clients/find/{mail}")
-    public ResponseEntity<Client> getProviderByMail(@PathVariable(value = "mail") String mail){
+    public ResponseEntity<?> getClientByMail(@PathVariable(value = "mail") String mail){
+        Map<String, Object> response = new HashMap<>();
+
         Client client = null;
         try {
             client = clientRepository.findByMail(mail).get();
-            return ResponseEntity.ok().body(client);
+            response.put("mensaje", "ok");
+            response.put("client", client);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(NoSuchElementException e) {
-        return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            response.put("mensaje", "error");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
-    // @RequestBody porque el menu viene en formato JSON
     @PostMapping("/clients")
     @ResponseBody
-    // @Valid para que valide las condiciones configuradas en Menu (@NotEmpty, @Size, @Email)
-    // Hay que inyectarle BindingResult que es lo que contiene todos los mensajes de error, para saber si ocurrió algún problema
     public ResponseEntity<?> createClient(@Valid @RequestBody Client client, BindingResult result) {
 
         Client newClient = null;
