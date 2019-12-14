@@ -59,6 +59,22 @@ public class ClientController {
         }
     }
 
+    @GetMapping("/clients/{id}")
+    public ResponseEntity<?> getClientById(@PathVariable(value = "id") Long id){
+        Map<String, Object> response = new HashMap<>();
+
+        Client client = null;
+        try {
+            client = clientRepository.findById(id).get();
+            response.put("mensaje", "ok");
+            response.put("client", client);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(NoSuchElementException e) {
+            response.put("mensaje", "No existe un cliente con el id " + id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
     @PostMapping("/clients")
     @ResponseBody
     public ResponseEntity<?> createClient(@Valid @RequestBody Client client, BindingResult result) {

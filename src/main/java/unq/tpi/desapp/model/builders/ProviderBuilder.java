@@ -16,6 +16,7 @@ public class ProviderBuilder {
     private String description;
     private String site;
     private String mail;
+    private String password;
     private String phone;
     private LocalTime attentionTimeBegin;
     private LocalTime attentionTimeEnd;
@@ -94,8 +95,12 @@ public class ProviderBuilder {
         this.credit = credit;
         return this;
     }
+    public ProviderBuilder withPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
     public Provider build() {
-        return new Provider(name, logo, locality, address, description, site, mail, phone, attentionTimeBegin, attentionTimeEnd, daysAttention, deliveryLocalities, menus, credit);
+        return new Provider(name, logo, locality, address, description, site, mail, password, phone, attentionTimeBegin, attentionTimeEnd, daysAttention, deliveryLocalities, menus, credit);
     }
 }

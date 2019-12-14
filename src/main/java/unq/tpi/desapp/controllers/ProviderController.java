@@ -161,13 +161,20 @@ public class ProviderController {
     }
 
     @GetMapping("/providers/find/{mail}")
-    public ResponseEntity<Provider> getProviderByMail(@PathVariable(value = "mail") String mail){
+    public ResponseEntity<?> getProviderByMail(@PathVariable(value = "mail") String mail){
+        Map<String, Object> response = new HashMap<>();
+
         Provider provider = null;
         try {
             provider = providerRepository.findByMail(mail).get();
-            return ResponseEntity.ok().body(provider);
+            response.put("mensaje", "ok");
+            response.put("provider", provider);
+            return ResponseEntity.ok().body(response);
         } catch(NoSuchElementException e) {
-            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            response.put("mensaje", "error");
+            response.put("error", "No se encuentra un proveedor con mail " + mail);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
     }
 }

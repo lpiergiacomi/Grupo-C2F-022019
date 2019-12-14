@@ -12,6 +12,7 @@ import unq.tpi.desapp.model.menu.MenuCategory;
 import unq.tpi.desapp.persistence.MenuRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,9 +43,14 @@ public class DesappGroupc2fBackendApplication {
             menus2.add(menu3);
             menus2.add(menu4);
 
-            Provider provider1 = new ProviderBuilder().withName("Proveedor 1").withMenus(menus1).build();
-            Provider provider2 = new ProviderBuilder().withName("Proveedor 2").withMenus(menus2).build();
 
+            List<String> daysAttention = new ArrayList<>();
+            daysAttention.add("Lunes");
+            daysAttention.add("Miercoles");
+            daysAttention.add("Viernes");
+
+            Provider provider1 = new ProviderBuilder().withName("Mc Donalds").withLogo("logo_mc.jpeg").withLocality("Quilmes").withAddress("Rivadavia 150, Quilmes, Buenos Aires, Argentina").withDescription("Típica casa de hamburguesas Mc Donalds en Quilmes").withSite("www.mcdonalds.com.ar/quilmes").withMail("quilmes@mcdonalds.com").withPassword("mcdonaldsquilmesquilmes@mcdonalds.comViandasYa").withPhone("+541234567890").withAttentionTimeBegin(LocalTime.now()).withAttentionTimeEnd(LocalTime.now()).withDaysAttention(daysAttention).withMenus(menus1).build();
+            Provider provider2 = new ProviderBuilder().withName("Burger King").withLogo("logo_burger.png").withLocality("Bernal").withAddress("9 de Julio 150, Bernal, Buenos Aires, Argentina").withDescription("Típica casa de hamburguesas Burguer King en Bernal").withSite("www.bk.com.ar/bernal").withMail("bernal@bk.com").withPassword("bkbernalbernal@bk.comViandasYa").withPhone("+541231231231").withAttentionTimeBegin(LocalTime.now()).withAttentionTimeEnd(LocalTime.now()).withDaysAttention(daysAttention).withMenus(menus2).build();
             menu1.setProvider(provider1);
             menu2.setProvider(provider1);
             menu3.setProvider(provider2);

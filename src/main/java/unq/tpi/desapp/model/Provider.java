@@ -32,6 +32,7 @@ public class Provider implements Serializable {
     private String address;
     private String description;
     private String site;
+    @Column(unique=true, nullable=false)
     private String mail;
     private String password;
     private String phone;
@@ -48,7 +49,7 @@ public class Provider implements Serializable {
     private int credit;
     private String type;
 
-    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, List<String> daysAttention, List<String> deliveryLocalities, List<Menu> menus, int credit) {
+    public Provider(String name, String logo, String locality, String address, String description, String site, String mail, String password, String phone, LocalTime attentionTimeBegin, LocalTime attentionTimeEnd, List<String> daysAttention, List<String> deliveryLocalities, List<Menu> menus, int credit) {
         this.name = name;
         this.logo = logo;
         this.locality = locality;
@@ -57,6 +58,7 @@ public class Provider implements Serializable {
         this.site = site;
         this.mail = mail;
         this.phone = phone;
+        this.password = password;
         this.attentionTimeBegin = attentionTimeBegin;
         this.attentionTimeEnd = attentionTimeEnd;
         this.daysAttention = daysAttention;
