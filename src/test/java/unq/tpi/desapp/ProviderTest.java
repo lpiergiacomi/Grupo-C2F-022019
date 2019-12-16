@@ -1,14 +1,14 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp;
 
 import org.junit.Test;
 import unq.tpi.desapp.exceptions.MaxMenusException;
-import unq.tpi.desapp.model.menu.Menu;
-import unq.tpi.desapp.model.menu.MenuOrder;
-import unq.tpi.desapp.model.builders.MenuBuilder;
-import unq.tpi.desapp.model.builders.MenuOrderBuilder;
-import unq.tpi.desapp.model.builders.ProviderBuilder;
+import unq.tpi.desapp.menu.Menu;
+import unq.tpi.desapp.menu.MenuOrder;
+import unq.tpi.desapp.model.Provider;
+import unq.tpi.desapp.builders.MenuBuilder;
+import unq.tpi.desapp.builders.MenuOrderBuilder;
+import unq.tpi.desapp.builders.ProviderBuilder;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;

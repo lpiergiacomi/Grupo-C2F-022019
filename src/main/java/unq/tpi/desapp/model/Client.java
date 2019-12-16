@@ -3,16 +3,13 @@ package unq.tpi.desapp.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
 import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
 import unq.tpi.desapp.exceptions.MenuSalesExceededException;
-import unq.tpi.desapp.model.holiday.HolidayChecker;
-import unq.tpi.desapp.model.menu.Menu;
-import unq.tpi.desapp.model.menu.MenuOrder;
+import unq.tpi.desapp.holiday.HolidayChecker;
+import unq.tpi.desapp.menu.MenuOrder;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;

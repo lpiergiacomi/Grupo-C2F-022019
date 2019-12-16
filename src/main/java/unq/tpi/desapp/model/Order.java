@@ -3,9 +3,9 @@ package unq.tpi.desapp.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import unq.tpi.desapp.model.email.Email;
-import unq.tpi.desapp.model.email.EmailSender;
-import unq.tpi.desapp.model.menu.MenuOrder;
+import unq.tpi.desapp.email.Email;
+import unq.tpi.desapp.email.EmailSender;
+import unq.tpi.desapp.menu.MenuOrder;
 
 
 import javax.persistence.*;

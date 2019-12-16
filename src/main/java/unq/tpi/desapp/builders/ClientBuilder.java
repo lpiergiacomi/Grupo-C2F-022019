@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model.builders;
+package unq.tpi.desapp.builders;
 
 import unq.tpi.desapp.model.Client;
 

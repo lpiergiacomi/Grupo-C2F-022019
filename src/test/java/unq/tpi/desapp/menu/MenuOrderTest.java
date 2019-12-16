@@ -1,8 +1,8 @@
-package unq.tpi.desapp.model.menu;
+package unq.tpi.desapp.menu;
 
 import org.junit.Test;
-import unq.tpi.desapp.model.builders.MenuBuilder;
-import unq.tpi.desapp.model.builders.MenuOrderBuilder;
+import unq.tpi.desapp.builders.MenuBuilder;
+import unq.tpi.desapp.builders.MenuOrderBuilder;
 
 import static org.junit.Assert.assertEquals;
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import unq.tpi.desapp.exceptions.ElementNotFoundException;
 import unq.tpi.desapp.model.Provider;
-import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.menu.Menu;
 import unq.tpi.desapp.persistence.ProviderRepository;
 import unq.tpi.desapp.services.IUploadFileService;
 

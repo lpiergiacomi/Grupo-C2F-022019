@@ -1,9 +1,8 @@
-package unq.tpi.desapp.model.builders;
+package unq.tpi.desapp.builders;
 
-import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.menu.Menu;
 import unq.tpi.desapp.model.Provider;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 

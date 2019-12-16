@@ -1,15 +1,17 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp;
 
 import org.junit.Test;
 import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
 import unq.tpi.desapp.exceptions.MenuSalesExceededException;
-import unq.tpi.desapp.model.menu.Menu;
-import unq.tpi.desapp.model.menu.MenuOrder;
-import unq.tpi.desapp.model.builders.ClientBuilder;
-import unq.tpi.desapp.model.builders.MenuBuilder;
-import unq.tpi.desapp.model.builders.MenuOrderBuilder;
-import unq.tpi.desapp.model.builders.ProviderBuilder;
+import unq.tpi.desapp.menu.Menu;
+import unq.tpi.desapp.menu.MenuOrder;
+import unq.tpi.desapp.model.Client;
+import unq.tpi.desapp.model.Provider;
+import unq.tpi.desapp.builders.ClientBuilder;
+import unq.tpi.desapp.builders.MenuBuilder;
+import unq.tpi.desapp.builders.MenuOrderBuilder;
+import unq.tpi.desapp.builders.ProviderBuilder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package unq.tpi.desapp.model;
+package unq.tpi.desapp;
 
 import org.junit.Test;
-import unq.tpi.desapp.model.holiday.HolidayChecker;
+import unq.tpi.desapp.holiday.HolidayChecker;
 
 import java.time.LocalDateTime;
 

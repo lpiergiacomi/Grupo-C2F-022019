@@ -13,7 +13,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import unq.tpi.desapp.exceptions.ElementNotFoundException;
 import unq.tpi.desapp.model.Provider;
-import unq.tpi.desapp.model.menu.Menu;
+import unq.tpi.desapp.menu.Menu;
 import unq.tpi.desapp.persistence.MenuRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
 

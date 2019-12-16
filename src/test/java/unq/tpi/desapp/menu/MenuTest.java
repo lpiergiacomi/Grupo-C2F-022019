@@ -1,13 +1,12 @@
-package unq.tpi.desapp.model.menu;
+package unq.tpi.desapp.menu;
 
 import org.junit.Test;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPrice2Exception;
 import unq.tpi.desapp.exceptions.InvalidMinQuantityPriceException;
 import unq.tpi.desapp.model.Provider;
-import unq.tpi.desapp.model.builders.MenuBuilder;
-import unq.tpi.desapp.model.builders.ProviderBuilder;
+import unq.tpi.desapp.builders.MenuBuilder;
+import unq.tpi.desapp.builders.ProviderBuilder;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;

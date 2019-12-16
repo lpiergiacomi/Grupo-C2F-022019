@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MaxMenusException;
-import unq.tpi.desapp.model.menu.Menu;
-import unq.tpi.desapp.model.menu.MenuOrder;
+import unq.tpi.desapp.menu.Menu;
+import unq.tpi.desapp.menu.MenuOrder;
 
 import javax.persistence.*;
 import java.io.Serializable;

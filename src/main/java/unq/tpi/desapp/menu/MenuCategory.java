@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model.menu;
+package unq.tpi.desapp.menu;
 
 public enum MenuCategory {
     Pizza,

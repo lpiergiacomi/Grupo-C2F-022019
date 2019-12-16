@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model.holiday;
+package unq.tpi.desapp.holiday;
 
 import com.google.gson.Gson;
 import org.springframework.web.client.RestTemplate;

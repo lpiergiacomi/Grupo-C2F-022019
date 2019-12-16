@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model.menu;
+package unq.tpi.desapp.menu;
 
 import lombok.Getter;
 import lombok.Setter;

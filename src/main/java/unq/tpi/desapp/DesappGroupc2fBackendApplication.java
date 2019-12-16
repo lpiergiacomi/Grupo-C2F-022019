@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import unq.tpi.desapp.model.Provider;
-import unq.tpi.desapp.model.builders.MenuBuilder;
-import unq.tpi.desapp.model.builders.ProviderBuilder;
-import unq.tpi.desapp.model.menu.Menu;
-import unq.tpi.desapp.model.menu.MenuCategory;
+import unq.tpi.desapp.builders.MenuBuilder;
+import unq.tpi.desapp.builders.ProviderBuilder;
+import unq.tpi.desapp.menu.Menu;
+import unq.tpi.desapp.menu.MenuCategory;
 import unq.tpi.desapp.persistence.MenuRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
 

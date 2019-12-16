@@ -1,4 +1,4 @@
-package unq.tpi.desapp.model.holiday;
+package unq.tpi.desapp.holiday;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
