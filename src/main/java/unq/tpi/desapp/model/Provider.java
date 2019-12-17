@@ -82,7 +82,5 @@ public class Provider implements Serializable {
         this.credit += credit;
     }
 
-    public boolean hasEnoughMenu(List<MenuOrder> menuOrders) {
-        return menuOrders.stream().allMatch(m -> m.getMenu().getMaxSalesPerDay() >= m.getQuantity());
-    }
+
 }

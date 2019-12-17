@@ -9,15 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import unq.tpi.desapp.exceptions.ElementNotFoundException;
+import unq.tpi.desapp.exceptions.InsufficientCreditException;
+import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
+import unq.tpi.desapp.exceptions.MenuSalesExceededException;
+import unq.tpi.desapp.menu.MenuOrder;
 import unq.tpi.desapp.model.Client;
 import unq.tpi.desapp.persistence.ClientRepository;
+import unq.tpi.desapp.persistence.ProviderRepository;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -26,11 +27,17 @@ import java.util.stream.Collectors;
 @ResponseBody
 public class ClientController {
 
+
     @Autowired
     private ClientRepository clientRepository;
+    private ProviderRepository providerRepository;
 
-    ClientController(ClientRepository clientRepository) {
+
+
+    ClientController(ClientRepository clientRepository, ProviderRepository providerRepository) {
+
         this.clientRepository = clientRepository;
+        this.providerRepository = providerRepository;
     }
 
     @InitBinder
@@ -98,6 +105,61 @@ public class ClientController {
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (NoSuchFieldError e){
+            response.put("mensaje", "Error al realizar el insert en la base de datos");
+            response.put("error", "No existe un cliente con ese id");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("mensaje", "El cliente ha sido creado con éxito");
+        response.put("client", newClient);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+
+    }
+
+
+    @PostMapping("/clients/purchase")
+    @ResponseBody
+    public ResponseEntity<?> createOrder(@Valid @RequestBody MenuOrder menuOrder, BindingResult result) {
+
+        Client newClient = null;
+        Map<String, Object> response = new HashMap<>();
+
+        if (result.hasErrors()) {
+
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(error -> "El campo '" + error.getField() + "' " + error.getDefaultMessage())
+                    .collect(Collectors.toList());
+
+            response.put("errors", errors);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            //Provider provider = this.providerRepository.findById(menuOrder.getMenu().getIdProvider()).get();
+            Client client = this.clientRepository.findById(menuOrder.getIdClient()).get();
+            client.paymentOrder(menuOrder);
+            newClient = this.clientRepository.save(client);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al realizar el insert en la base de datos");
+            response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (InsufficientCreditException e){
+            response.put("mensaje", "No dispones de crédito para comprar este menú");
+            response.put("error", e);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (MenuSalesExceededException e){
+            response.put("mensaje", "El proveedor excedió las ventas para este menú");
+            response.put("error", e);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (InvalidDeliveryDateException e){
+            response.put("mensaje", "La fecha de entrega es muy pronto");
+            response.put("error", e);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (NoSuchFieldError e){

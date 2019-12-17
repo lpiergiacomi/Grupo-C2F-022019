@@ -3,6 +3,7 @@ package unq.tpi.desapp.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
 import unq.tpi.desapp.exceptions.MenuSalesExceededException;
@@ -65,16 +66,16 @@ public class Client {
         this.credit -= credit;
     }
 
-    public boolean hasEnoughCredit(List<MenuOrder> menuOrders) {
-        int amount = menuOrders.stream().mapToInt(m -> m.totalAmount()).sum();
-        return amount <= this.getCredit();
+
+    public boolean hasEnoughCredit(MenuOrder menuOrder) {
+        return menuOrder.getPrice() <= this.getCredit();
     }
 
-    public void paymentOrder(Provider provider, List<MenuOrder> menuOrders, LocalDateTime deliveryDate) {
-        if (this.deliveryDateValid(deliveryDate)) {
-            if (provider.hasEnoughMenu(menuOrders)) {
-                if (this.hasEnoughCredit(menuOrders)) {
-                    Order order = new Order(provider, this, deliveryDate);
+    public void paymentOrder(MenuOrder menuOrder) {
+        if (this.deliveryDateValid(menuOrder.getDeliveryDate())) {
+            if (menuOrder.hasEnoughMenu()) {
+                if (this.hasEnoughCredit(menuOrder)) {
+                    Order order = new Order(menuOrder.getMenu().getProvider(), this, menuOrder.getDeliveryDate());
                     order.sendConfirmationEmails();
                     order.decreaseClientCredit(order.totalMenus());
                     order.increaseProviderCredit(order.totalMenus());
@@ -89,6 +90,7 @@ public class Client {
             throw new InvalidDeliveryDateException("La fecha de entrega es muy pronto");
         }
     }
+
 
     private boolean deliveryDateValid(LocalDateTime deliveryDate) {
         // Chequea que falten por lo menos 48 horas para la fecha de entrega, contemplando sólo días hábiles.

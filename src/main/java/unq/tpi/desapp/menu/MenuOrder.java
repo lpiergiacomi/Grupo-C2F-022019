@@ -2,8 +2,10 @@ package unq.tpi.desapp.menu;
 
 import lombok.Getter;
 import lombok.Setter;
+import unq.tpi.desapp.model.Provider;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,13 +20,22 @@ public class MenuOrder {
     private Menu menu;
     private int quantity;
     private int price;
+    private String deliveryType;
+    private LocalDateTime deliveryDate;
+    private String deliveryTime;
+    private Long idClient;
+
 
     public MenuOrder() {}
 
-    public MenuOrder(Menu menu, int quantity) {
+    public MenuOrder(Menu menu, int quantity, String deliveryType, LocalDateTime deliveryDate, String deliveryTime)
+    {
         this.menu = menu;
         this.quantity = quantity;
         this.price = 0;
+        this.deliveryType = deliveryType;
+        this.deliveryDate = deliveryDate;
+        this.deliveryTime = deliveryTime;
     }
 
     public int totalAmount() {
@@ -37,5 +48,9 @@ public class MenuOrder {
         }
 
         return this.price;
+    }
+
+    public boolean hasEnoughMenu() {
+        return this.getMenu().getMaxSalesPerDay() >= this.getQuantity();
     }
 }

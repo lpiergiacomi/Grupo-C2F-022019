@@ -154,8 +154,7 @@ public class ProviderTest {
         MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).withQuantity(1).build();
         List<MenuOrder> menuOrders = new ArrayList<>();
         menuOrders.add(menuOrder);
-        Provider viri = new ProviderBuilder().withCredit(100).build();
-        assertTrue(viri.hasEnoughMenu(menuOrders));
+        assertTrue(menuOrder.hasEnoughMenu());
     }
 }
 

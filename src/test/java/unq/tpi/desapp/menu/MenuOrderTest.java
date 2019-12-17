@@ -11,7 +11,7 @@ public class MenuOrderTest {
     /*
         Start Test builder
      */
-
+/*
     @Test
     public void menuTest() {
         Menu menu = new MenuBuilder().withName("Tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
@@ -25,10 +25,12 @@ public class MenuOrderTest {
         assertEquals(menuOrder.getQuantity(), 1);
     }
 
+ */
+
     /*
         End Test builder
      */
-
+/*
     @Test
     public void totalAmountWithoutMinQuantityTest() {
         Menu menu = new MenuBuilder().withName("Tradicional").withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).build();
@@ -50,5 +52,5 @@ public class MenuOrderTest {
         assertEquals(menuOrder.totalAmount(), 300);
         assertEquals(menuOrder.getPrice(), 300);
     }
-
+*/
 }

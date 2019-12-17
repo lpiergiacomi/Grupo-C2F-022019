@@ -91,7 +91,7 @@ public class Menu {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "provider_id")
     @JsonBackReference
-    private Provider provider = new Provider();
+    private Provider provider;
 
     public Menu() {
     }
