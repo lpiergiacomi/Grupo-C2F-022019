@@ -17,6 +17,8 @@ import unq.tpi.desapp.model.Client;
 import unq.tpi.desapp.persistence.ClientRepository;
 import unq.tpi.desapp.persistence.MenuOrderRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
+import org.apache.log4j.Logger;
+
 
 import javax.validation.Valid;
 import java.util.*;
@@ -33,6 +35,8 @@ public class ClientController {
     private ClientRepository clientRepository;
     private ProviderRepository providerRepository;
     private MenuOrderRepository menuOrderRepository;
+    public static Logger log = Logger.getLogger(ClientController.class);
+
 
 
 
@@ -78,9 +82,11 @@ public class ClientController {
             client = clientRepository.findById(id).get();
             response.put("mensaje", "ok");
             response.put("client", client);
+            log.info("Se encontro correctamente al usuario con id " + id);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(NoSuchElementException e) {
             response.put("mensaje", "No existe un cliente con el id " + id);
+            log.error("Error al buscar el cliente con id " + id,e);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
@@ -143,15 +149,15 @@ public class ClientController {
         try {
             Client client = this.clientRepository.findById(menuOrder.getIdClient()).get();
             if (!client.hasPendingRates()){
+                client.paymentOrder(menuOrder);
+                this.clientRepository.save(client);
             }
             else {
                 response.put("mensaje", "Debes calificar todas tus compras");
                 response.put("error", "Debes calificar todas tus compras");
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            client.paymentOrder(menuOrder);
-            this.clientRepository.save(client);
-            newMenuOrder = this.menuOrderRepository.save(menuOrder);
+            //newMenuOrder = this.menuOrderRepository.save(menuOrder);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
