@@ -15,6 +15,7 @@ import unq.tpi.desapp.exceptions.MenuSalesExceededException;
 import unq.tpi.desapp.menu.MenuOrder;
 import unq.tpi.desapp.model.Client;
 import unq.tpi.desapp.persistence.ClientRepository;
+import unq.tpi.desapp.persistence.MenuOrderRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
 
 import javax.validation.Valid;
@@ -31,13 +32,15 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
     private ProviderRepository providerRepository;
+    private MenuOrderRepository menuOrderRepository;
 
 
 
-    ClientController(ClientRepository clientRepository, ProviderRepository providerRepository) {
+    ClientController(ClientRepository clientRepository, ProviderRepository providerRepository, MenuOrderRepository menuOrderRepository) {
 
         this.clientRepository = clientRepository;
         this.providerRepository = providerRepository;
+        this.menuOrderRepository = menuOrderRepository;
     }
 
     @InitBinder
@@ -123,7 +126,7 @@ public class ClientController {
     @ResponseBody
     public ResponseEntity<?> createOrder(@Valid @RequestBody MenuOrder menuOrder, BindingResult result) {
 
-        Client newClient = null;
+        MenuOrder newMenuOrder = null;
         Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
@@ -138,10 +141,17 @@ public class ClientController {
         }
 
         try {
-            //Provider provider = this.providerRepository.findById(menuOrder.getMenu().getIdProvider()).get();
             Client client = this.clientRepository.findById(menuOrder.getIdClient()).get();
+            if (!client.hasPendingRates()){
+            }
+            else {
+                response.put("mensaje", "Debes calificar todas tus compras");
+                response.put("error", "Debes calificar todas tus compras");
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
             client.paymentOrder(menuOrder);
-            newClient = this.clientRepository.save(client);
+            this.clientRepository.save(client);
+            newMenuOrder = this.menuOrderRepository.save(menuOrder);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
@@ -168,7 +178,7 @@ public class ClientController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.put("mensaje", "El cliente ha sido creado con éxito");
-        response.put("client", newClient);
+        response.put("menuOrder", newMenuOrder);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }

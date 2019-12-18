@@ -124,15 +124,15 @@ public class ClientTest {
     }
 */
     @Test
-    public void createValidOrderTest() {
+    public void createValidMenuOrderTest() {
         LocalDateTime deliveryDate = LocalDateTime.now().plusDays(10);
         Client esteban = new ClientBuilder().withCredit(1000).withMail("asasa@asasa.com").build();
         Provider provider = new ProviderBuilder().withMail("asd@asd.com").build();
         Menu menu = new MenuBuilder().withMaxSalesPerDay(99).withPrice(200).withQuantityPrice(150).withQuantityPrice2(100).withProvider(provider).build();
         MenuOrder menuOrder = new MenuOrderBuilder().withMenu(menu).withDeliveryDate(deliveryDate).build();
-        assertEquals(esteban.getOrders().size(), 0);
+        assertEquals(esteban.getMenuOrders().size(), 0);
         esteban.paymentOrder(menuOrder);
-        assertEquals(esteban.getOrders().size(), 1);
+        assertEquals(esteban.getMenuOrders().size(), 1);
     }
 
 }

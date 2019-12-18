@@ -123,11 +123,6 @@ public class MenuTest {
         assertEquals(menu.getMaxSalesPerDay(), 10);
     }
 
-    @Test
-    public void qualificationTest() {
-        Menu menu = new MenuBuilder().withQualification(10).withPrice(200).withQuantityPrice(150).build();
-        assertEquals(menu.getQualification(), 10);
-    }
 
     @Test
     public void providerTest() {

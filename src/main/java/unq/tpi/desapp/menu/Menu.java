@@ -85,8 +85,9 @@ public class Menu {
 
     private int preparationTime;
 
-    private int qualification;
-
+    private double qualification;
+    private int qualificationsCount;
+    private boolean active;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "provider_id")
@@ -145,6 +146,19 @@ public class Menu {
         if (deliveryPrice != 0){
             if (deliveryPrice < 10 || deliveryPrice > 40){
                 throw new InvalidMinQuantityPrice2Exception("El precio de delivery debe ser entre 10 y 40");
+            }
+        }
+    }
+
+    public void setQualification(double qualification){
+        this.qualificationsCount++;
+        this.qualification = (this.qualification + qualification) / this.qualificationsCount;
+        if (qualificationsCount > 20){
+            if (this.qualification < 2){
+                this.active = false;
+            }
+            else {
+                this.active = true;
             }
         }
     }

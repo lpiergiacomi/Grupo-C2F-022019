@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import unq.tpi.desapp.exceptions.MaxMenusException;
 import unq.tpi.desapp.menu.Menu;
-import unq.tpi.desapp.menu.MenuOrder;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;

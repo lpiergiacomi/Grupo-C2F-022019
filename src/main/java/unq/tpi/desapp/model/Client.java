@@ -38,9 +38,8 @@ public class Client {
     private String address;
     private int credit;
     //private List<Menu> menus;
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Order> orders;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<MenuOrder> menuOrders;
     private String type;
 
     public Client() {}
@@ -55,7 +54,7 @@ public class Client {
         this.address = address;
         this.credit = credit;
         //this.menus = new ArrayList<>();
-        this.orders = new ArrayList<>();
+        this.menuOrders = new ArrayList<>();
     }
 
     public void increaseCredit(int credit) {
@@ -75,11 +74,10 @@ public class Client {
         if (this.deliveryDateValid(menuOrder.getDeliveryDate())) {
             if (menuOrder.hasEnoughMenu()) {
                 if (this.hasEnoughCredit(menuOrder)) {
-                    Order order = new Order(menuOrder.getMenu().getProvider(), this, menuOrder.getDeliveryDate());
-                    order.sendConfirmationEmails();
-                    order.decreaseClientCredit(order.totalMenus());
-                    order.increaseProviderCredit(order.totalMenus());
-                    orders.add(order);
+                    menuOrder.sendConfirmationEmails(this, menuOrder.getMenu().getProvider());
+                    this.discountCredit(menuOrder.getPrice() * menuOrder.getQuantity());
+                    menuOrder.getMenu().getProvider().increaseCredit(menuOrder.getPrice() * menuOrder.getQuantity());
+                    menuOrders.add(menuOrder);
                 } else {
                     throw new InsufficientCreditException("No dispones de crédito para comprar este menú");
                 }
@@ -109,4 +107,7 @@ public class Client {
 
     }
 
+    public boolean hasPendingRates() {
+        return this.menuOrders.stream().anyMatch(menuOrder -> menuOrder.getQualification() == 0 );
+    }
 }
