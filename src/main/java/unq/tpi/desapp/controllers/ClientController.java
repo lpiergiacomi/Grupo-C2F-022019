@@ -14,6 +14,7 @@ import unq.tpi.desapp.exceptions.InvalidDeliveryDateException;
 import unq.tpi.desapp.exceptions.MenuSalesExceededException;
 import unq.tpi.desapp.menu.MenuOrder;
 import unq.tpi.desapp.model.Client;
+import unq.tpi.desapp.model.Provider;
 import unq.tpi.desapp.persistence.ClientRepository;
 import unq.tpi.desapp.persistence.MenuOrderRepository;
 import unq.tpi.desapp.persistence.ProviderRepository;
@@ -33,7 +34,9 @@ public class ClientController {
 
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
     private ProviderRepository providerRepository;
+    @Autowired
     private MenuOrderRepository menuOrderRepository;
     public static Logger log = Logger.getLogger(ClientController.class);
 
@@ -148,16 +151,19 @@ public class ClientController {
 
         try {
             Client client = this.clientRepository.findById(menuOrder.getIdClient()).get();
+
             if (!client.hasPendingRates()){
                 client.paymentOrder(menuOrder);
+
+                newMenuOrder = this.menuOrderRepository.save(menuOrder);
                 this.clientRepository.save(client);
+
             }
             else {
                 response.put("mensaje", "Debes calificar todas tus compras");
                 response.put("error", "Debes calificar todas tus compras");
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            //newMenuOrder = this.menuOrderRepository.save(menuOrder);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
@@ -183,9 +189,45 @@ public class ClientController {
             response.put("error", "No existe un cliente con ese id");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje", "El cliente ha sido creado con éxito");
+        response.put("mensaje", "La compra fue realizada con éxito");
         response.put("menuOrder", newMenuOrder);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 
+    }
+
+    @PutMapping("/clients/deposit/{id}")
+    public ResponseEntity<?> depositCredit(@Valid @RequestBody Client clientDetails, BindingResult result, @PathVariable Long id) {
+        Client client = clientRepository.findById(id).get();
+        Client clientUpdated = null;
+        Map<String, Object> response = new HashMap<>();
+
+        if (result.hasErrors()) {
+
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(error -> "El campo '" + error.getField() + "' " + error.getDefaultMessage())
+                    .collect(Collectors.toList());
+
+            response.put("errors", errors);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (client == null) {
+            response.put("mensaje", "Error! No se pudo editar el cliente con ID: " + id + " ya que no existe en la base de datos");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            client.increaseCredit(clientDetails.getCredit());
+            clientUpdated = this.clientRepository.save(client);
+
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar el cliente en la base de datos");
+            response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("mensaje", "Depositaste $" + clientDetails.getCredit() + " y ahora tenés $" + clientUpdated.getCredit());
+        response.put("client", clientUpdated);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

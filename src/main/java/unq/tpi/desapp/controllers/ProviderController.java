@@ -2,13 +2,16 @@ package unq.tpi.desapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import unq.tpi.desapp.exceptions.ElementNotFoundException;
+import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.model.Provider;
 import unq.tpi.desapp.menu.Menu;
 import unq.tpi.desapp.persistence.ProviderRepository;
@@ -22,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = {"*"})
@@ -177,5 +181,84 @@ public class ProviderController {
 
         }
     }
+
+    @PutMapping("/providers/withdraw/{id}")
+    public ResponseEntity<?> withdrawCredit(@Valid @RequestBody Provider providerDetails, BindingResult result, @PathVariable Long id) {
+        Provider provider = providerRepository.findById(id).get();
+        Provider providerUpdated= null;
+        Map<String, Object> response = new HashMap<>();
+
+        if (result.hasErrors()) {
+
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(error -> "El campo '" + error.getField() + "' " + error.getDefaultMessage())
+                    .collect(Collectors.toList());
+
+            response.put("errors", errors);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (provider == null) {
+            response.put("mensaje", "error");
+            response.put("error", "Error! No se pudo editar el proveedor con ID: " + id + " ya que no existe en la base de datos");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            provider.decreaseCredit(providerDetails.getCredit());
+            providerUpdated = this.providerRepository.save(provider);
+
+        } catch (DataAccessException e) {
+            response.put("mensaje", "error");
+            response.put("error", "Error al actualizar el cliente en la base de datos");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (InsufficientCreditException e) {
+            response.put("mensaje", "error");
+            response.put("error", "No tenés ese dinero para retirar");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        response.put("mensaje", "Retiraste $" + providerDetails.getCredit() + " y ahora tenés $" + providerUpdated.getCredit());
+        response.put("provider", providerUpdated);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/providers/updatecredit/{id}")
+    public ResponseEntity<?> updateProvider(@Valid @RequestBody Provider providerDetails, BindingResult result, @PathVariable Long id) {
+        Provider provider = providerRepository.findById(id).get();
+        Provider providerUpdated = null;
+        Map<String, Object> response = new HashMap<>();
+
+        if (result.hasErrors()) {
+
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(error -> "El campo '" + error.getField() + "' " + error.getDefaultMessage())
+                    .collect(Collectors.toList());
+
+            response.put("errors", errors);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (provider == null) {
+            response.put("mensaje", "Error! No se pudo editar el proveedor con ID: " + id + " ya que no existe en la base de datos");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            provider.setCredit(providerDetails.getCredit());
+            providerUpdated = this.providerRepository.save(provider);
+
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar el proveedor en la base de datos");
+            response.put("error", e.getMessage() + ": " + e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("provider", providerUpdated);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
 }
+
 

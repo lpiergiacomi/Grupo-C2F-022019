@@ -3,6 +3,7 @@ package unq.tpi.desapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import unq.tpi.desapp.exceptions.InsufficientCreditException;
 import unq.tpi.desapp.exceptions.MaxMenusException;
 import unq.tpi.desapp.menu.Menu;
 import javax.persistence.*;
@@ -78,6 +79,15 @@ public class Provider implements Serializable {
 
     public void increaseCredit(int credit) {
         this.credit += credit;
+    }
+
+    public void decreaseCredit(int credit) {
+        if (this.credit < credit){
+            throw new InsufficientCreditException("No tenés ese dinero para retirar");
+        }
+        else {
+            this.credit -= credit;
+        }
     }
 
 

@@ -11,4 +11,7 @@ public interface MenuOrderRepository extends JpaRepository<MenuOrder, Long> {
 
     @Query("SELECT mo FROM MenuOrder mo WHERE mo.idClient = :idClient")
     Optional<List<MenuOrder>> findByIdClient(Long idClient);
+
+    @Query("SELECT mo FROM MenuOrder mo WHERE mo.menu.provider.id = :idProvider")
+    Optional<List<MenuOrder>> findByIdProvider(Long idProvider);
 }

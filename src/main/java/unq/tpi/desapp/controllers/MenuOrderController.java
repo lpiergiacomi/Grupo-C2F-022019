@@ -62,6 +62,17 @@ public class MenuOrderController {
         }
     }
 
+    @GetMapping("/menuorder/provider/{idProvider}")
+    public ResponseEntity<List<MenuOrder>> getMenuOrderByIdProvider(@PathVariable(value = "idProvider") Long idProvider){
+        List<MenuOrder> menuOrders = null;
+        try {
+            menuOrders = menuOrderRepository.findByIdProvider(idProvider).get();
+            return ResponseEntity.ok().body(menuOrders);
+        } catch(NoSuchElementException e) {
+            return ResponseEntity.ok().body(new ArrayList<>());
+        }
+    }
+
     @PutMapping("/menuorder/{id}")
     public ResponseEntity<?> updateMenuOrder(@Valid @RequestBody MenuOrder menuOrderDetails, BindingResult result, @PathVariable Long id) {
         MenuOrder menuOrder = menuOrderRepository.findById(id).get();

@@ -38,7 +38,7 @@ public class Client {
     private String address;
     private int credit;
     //private List<Menu> menus;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<MenuOrder> menuOrders;
     private String type;
 
@@ -75,8 +75,8 @@ public class Client {
             if (menuOrder.hasEnoughMenu()) {
                 if (this.hasEnoughCredit(menuOrder)) {
                     menuOrder.sendConfirmationEmails(this, menuOrder.getMenu().getProvider());
-                    this.discountCredit(menuOrder.getPrice() * menuOrder.getQuantity());
-                    menuOrder.getMenu().getProvider().increaseCredit(menuOrder.getPrice() * menuOrder.getQuantity());
+                    this.discountCredit(menuOrder.getPrice());
+                    menuOrder.getMenu().getProvider().increaseCredit(menuOrder.getPrice());
                     menuOrders.add(menuOrder);
                 } else {
                     throw new InsufficientCreditException("No dispones de crédito para comprar este menú");
@@ -92,6 +92,7 @@ public class Client {
 
     private boolean deliveryDateValid(LocalDateTime deliveryDate) {
         // Chequea que falten por lo menos 48 horas para la fecha de entrega, contemplando sólo días hábiles.
+        /*
         LocalDateTime from = LocalDateTime.now();
 
         long numOfDaysBetween = ChronoUnit.DAYS.between(from, deliveryDate);
@@ -104,7 +105,8 @@ public class Client {
         holidayChecker.filterWorkingDays(days);
 
         return ChronoUnit.HOURS.between(LocalDateTime.now(), deliveryDate) > 48;
-
+        */
+        return true;
     }
 
     public boolean hasPendingRates() {
