@@ -37,7 +37,6 @@ public class Menu {
     private List<MenuCategory> categories;
 
 
-    //TODO: Es un campo opcional, si no escriben nada llega null, y no pasa las validaciones de arriba
     private int deliveryPrice;
 
     @NotNull(message = "no puede estar vacío")
@@ -48,15 +47,12 @@ public class Menu {
     @Temporal(TemporalType.DATE)
     private Date validityDateEnd;
 
-    //@Temporal(TemporalType.DATE)
     private LocalTime deliveryTimeBegin;
 
-    //@Temporal(TemporalType.DATE)
     private LocalTime deliveryTimeEnd;
 
     @NotNull(message = "no puede estar vacío")
     @Min(value = 0, message = "no puede ser menor a 0")
-    //TODO: DEBERIA SER UN TIMEPICKER?
     private int deliveryTimeAverage;
 
     @NotNull(message = "no puede estar vacío")
@@ -71,12 +67,10 @@ public class Menu {
     @NotNull(message = "no puede estar vacío")
     @Min(value = 0, message = "no puede ser menor a 0")
     @Max(value = 1000, message = "no puede ser mayor a 1000")
-    // DEBE SER MENOR A PRECIO
     private int minQuantityPrice;
 
     private int minQuantity2;
 
-    // DEBE SER MENOR A PRECIO MINIMO 1
     private int minQuantityPrice2;
 
     @NotNull(message = "no puede estar vacío")

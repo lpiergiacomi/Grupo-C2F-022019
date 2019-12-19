@@ -92,7 +92,7 @@ public class Client {
 
     private boolean deliveryDateValid(LocalDateTime deliveryDate) {
         // Chequea que falten por lo menos 48 horas para la fecha de entrega, contemplando sólo días hábiles.
-        /*
+
         LocalDateTime from = LocalDateTime.now();
 
         long numOfDaysBetween = ChronoUnit.DAYS.between(from, deliveryDate);
@@ -105,8 +105,6 @@ public class Client {
         holidayChecker.filterWorkingDays(days);
 
         return ChronoUnit.HOURS.between(LocalDateTime.now(), deliveryDate) > 48;
-        */
-        return true;
     }
 
     public boolean hasPendingRates() {
